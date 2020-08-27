@@ -1,0 +1,8 @@
+<a class="nav-link" [routerLink]="['/header/register/'  + memberId]" routerLinkActive="active">Edit User Details
+</a>
+<div>
+    <h3> User Details </h3>
+    <div *ngIf="userDetails?.name">
+        <label class="op-label"> UserName: {{userDetails?.name}}</label>
+    </div>
+</div>

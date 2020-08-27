@@ -1,0 +1,198 @@
+<form [formGroup]="registerForm" (submit)="registerUser()">
+  <h1> Customer Registration Form </h1>
+  <a class="nav-link" [routerLink]="['/header']" routerLinkActive="active">LogOut </a>
+  <div class="form-group col-md-4">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" formControlName="name">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.name.errors?.required"> Name cannot be empty</error>
+      <error *ngIf="registerFormCtrl.name.errors?.pattern">Invalid characters.Only Alphabets and Spaces are allowed.
+      </error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="userName">UserName</label>
+    <input type="text" class="form-control" id="userName" formControlName="userName">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.userName.errors?.required"> UserName cannot be empty</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" id="inputPassword" formControlName="inputPassword">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.inputPassword.errors?.required"> Password cannot be empty</error>
+    </div>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="gaurdianType">Gaurdian Type </label>
+    <select formControlName="gaurdianType">
+      <option *ngFor="let gaurdianType of GaurdianTypes" [value]="gaurdianType.id">
+        {{gaurdianType.name}}
+      </option>
+    </select>
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.gaurdianType.errors?.required"> Gaurdian Type is a Mandatory field. Kindly select
+        one from drop down</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="gaurdianName">Gaurdian Name</label>
+    <input type="text" class="form-control" id="gaurdianName" formControlName="gaurdianName">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.gaurdianName.errors?.required">Gaurdian Name is a Mandatory field</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="inputAddress1">Address</label>
+    <input type="text" class="form-control" id="inputAddress1" placeholder="No 123" formControlName="inputAddress1">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.inputAddress1.errors?.required">Address is a Mandatory Field</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"
+      formControlName="inputAddress2">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.inputAddress2.errors?.required">Address is a Mandatory Field</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="citizenShip">CitizenShip</label>
+    <input type="text" class="form-control" id="citizenShip" formControlName="citizenShip">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.citizenShip.errors?.required">CitizenShip is a Mandatory Field</error>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>Country</label>
+      <select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)" formControlName="country">
+
+        <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label>State</label>
+      <select formControlName="state">
+
+        <option *ngFor="let state of states " value={{state.id}}>{{state.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="emailAddress">Email Address</label>
+    <input type="email" class="form-control" id="emailAddress" formControlName="emailAddress">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.emailAddress.errors?.required">Email Address is a Mandatory Field</error>
+      <error *ngIf="registerFormCtrl.emailAddress.errors?.pattern">Email Address is Invalid</error>
+    </div>
+  </div>
+
+  <div class="form-group col-md-4">
+    <label for="gender">Gender</label>
+    <select formControlName="gender">
+      <option *ngFor="let gender of GenderTypes" [value]="gender.id">
+        {{gender.name}}
+      </option>
+    </select>
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.gender.errors?.required">Gender is a Mandatory field. Kindly select one from drop
+        down</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="maritalStatus">Marital Status</label>
+    <select formControlName="maritalStatus">
+      <option *ngFor="let maritalStatus of MaritalStatusTypes" [value]="maritalStatus.id">
+        {{maritalStatus.name}}
+      </option>
+    </select>
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.maritalStatus.errors?.required">Marital Status is a Mandatory field. Kindly select
+        one from drop down</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="contactNo">Contact Number</label>
+    <input type="number" class="form-control" id="contactNo" formControlName="contactNo">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.contactNo.errors?.required">Contact Number is a Mandatory field</error>
+      <error *ngIf="registerFormCtrl.contactNo.errors?.pattern">Invalid Contact no. Only numbers of 10 digits are
+        allowed.</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="date">Date of Birth</label>
+    <input type="text" name="begin" bsDatepicker formControlName="date" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+      [minDate]="minDate" [maxDate]="maxDate">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.date.errors?.required">Date of Birth is a Mandatory Field</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="registrationDate">Registration Date</label>
+    <input type="text" [disabled]="disableRegistrationDate" (click)="getDate()" class="form-control"
+      id="registrationDate" formControlName="registrationDate" editable="false">
+  </div>
+  <div class="form-group col-md-4">
+    <label for="timeZone">TimeZone</label>
+    <select formControlName="timeZone">
+      <option *ngFor="let timeZone of TimeZones" [value]="timeZone.id">
+        {{timeZone.name}}
+      </option>
+    </select>
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.timeZone.errors?.required">TimeZone is a Mandatory field. Kindly select one from
+        drop down</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="bloodType">Blood Type</label>
+    <select formControlName="bloodType">
+      <option *ngFor="let bloodType of BloodTypes" [value]="bloodType.id">
+        {{bloodType.name}}
+      </option>
+    </select>
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.bloodType.errors?.required">Blood Type is a Mandatory field. Kindly select one from
+        drop down</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="countryVisited">Country Visited</label>
+    <input type="text" class="form-control" id="countryVisited" formControlName="countryVisited">
+    <div style='color:red'>
+      <error *ngIf="registerFormCtrl.countryVisited.errors?.required">Country Visited is a Mandatory field</error>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="citizenStatus">Citizen Status</label>
+    <input type="text" (click)="ageFromDateOfBirthday()" class="form-control" id="citizenStatus"
+      formControlName="citizenStatus">
+    <div *ngIf="age" style='color: green'>
+      Age of the user is: {{age}}
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="displayName">Display Name</label>
+    <input type="text" class="form-control" id="displayName" formControlName="displayName">
+  </div>
+  <div class="form-group col-md-4">
+    <label for="supplierName">Supplier Name</label>
+    <input type="text" class="form-control" id="supplierName" formControlName="supplierName">
+  </div>
+  <div class="form-group col-md-4">
+    <label for="ssnNumber">SSN Number</label>
+    <input type="text" class="form-control" id="ssnNumber" formControlName="ssnNumber">
+  </div>
+  <div class="input">
+    <input type="submit" value="Submit" class="btn btn-primary" [disabled]="!registerForm.valid">
+    <div *ngIf=" registrationSuccess" style='color: green'>
+      User registration Successfull. Member id is {{ randomMemberId}}
+    </div>
+    <div *ngIf="registrationCloneSuccess" style='color: green'> Personal details updated successfully
+    </div>
+  </div>
+</form>
