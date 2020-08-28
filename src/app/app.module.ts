@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,6 +22,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AuthService } from './service/auth.service';
 import { ViewUserDetailsComponent } from './view-user-details/view-user-details.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { DataService } from './service/DataService';
+import { ViewAppointmentComponent } from './view-appointment/view-appointment.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { DeleteAppointmentComponent } from './delete-appointment/delete-appointment.component';
+
 
 
 @NgModule({
@@ -31,7 +37,10 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     RegisterComponent,
     AppointmentComponent,
     HomeComponent,
-    ViewUserDetailsComponent
+    ViewUserDetailsComponent,
+    ViewAppointmentComponent,
+    DeleteUserComponent,
+    DeleteAppointmentComponent
   ],
   imports: [
     NgbModule,
@@ -40,7 +49,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     AppRoutingModule,
     RouterModule.forRoot([
       {
-        path: 'header/login',
+        path: 'login',
         component: LoginComponent
       },
       {
@@ -48,7 +57,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
         component: HeaderComponent
       },
       {
-        path: 'header/register',
+        path: 'register',
         component: RegisterComponent
       },
       {
@@ -64,8 +73,24 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
         component: ViewUserDetailsComponent
       },
       {
-        path: 'header/register/:Id',
+        path: 'view/register/edit/:Id',
         component: RegisterComponent
+      },
+      {
+        path: 'view/deleteUser/delete/:Id',
+        component: DeleteUserComponent
+      },
+      {
+        path: 'viewAppointment',
+        component: ViewAppointmentComponent
+      },
+      {
+        path: 'viewAppointment/appointment/edit/:Id',
+        component: AppointmentComponent
+      },
+      {
+        path: 'viewAppointment/deleteUser/delete:Id',
+        component: DeleteAppointmentComponent
       }
     ]),
     FormsModule,
@@ -76,7 +101,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NgxMaterialTimepickerModule,
     TimepickerModule
   ],
-  providers: [DropDownService, AuthService],
+  providers: [DropDownService, AuthService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

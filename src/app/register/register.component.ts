@@ -9,6 +9,8 @@ import { DropDownService } from '../service/DropDownService';
 import { AuthService } from '../service/auth.service';
 import { LoginDetails } from '../models/LoginDetails';
 import { Router } from '@angular/router';
+import { DataService } from '../service/DataService';
+import { AppointmentDetails } from '../models/AppointmentDetails';
 export function cloneValues() {
 
 }
@@ -63,13 +65,15 @@ export class RegisterComponent implements OnInit {
   registrationSuccess: boolean;
   registrationCloneSuccess: boolean;
   clonedMemberId: string;
-  disableRegistrationDate = false;
+  disableCitizenField = false;
+  userDeletedSuccess = false;
+  appointmentDetails: AppointmentDetails;
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
     private dropDownService: DropDownService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
 
@@ -122,8 +126,9 @@ export class RegisterComponent implements OnInit {
       supplierName: ['', Validators.required],
       ssnNumber: ['']
     });
-
+    this.getDate();
     this.cloneValues();
+    this.deleteDetails();
   }
 
   get registerFormCtrl() {
@@ -137,12 +142,11 @@ export class RegisterComponent implements OnInit {
   getDate() {
     var today = new Date();
     this.registerForm.get('registrationDate').setValue(today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2));
-    this.disableRegistrationDate = true;
   }
 
-  public ageFromDateOfBirthday() {
+  public ageFromDateOfBirthday(event: any) {
     const today = new Date();
-    const birthDate = new Date(this.registerForm.get('date').value);
+    const birthDate = new Date(event);
     this.age = today.getFullYear() - birthDate.getFullYear();
     const m = today.getMonth() - birthDate.getMonth();
 
@@ -160,6 +164,7 @@ export class RegisterComponent implements OnInit {
       this.citizenStatus = "Senior Citizen";
     }
     this.registerForm.get('citizenStatus').setValue(this.citizenStatus);
+    this.disableCitizenField = true;
   }
 
 
@@ -172,7 +177,7 @@ export class RegisterComponent implements OnInit {
     }
     console.log('Empty ' + this.randomMemberId);
     const userDetails: UserDetails = {
-      memberid: this.randomMemberId,
+      id: this.randomMemberId,
       name: this.registerForm.get('name').value,
       userName: this.registerForm.get('userName').value,
       password: this.registerForm.get('inputPassword').value,
@@ -198,66 +203,104 @@ export class RegisterComponent implements OnInit {
       ssnNumber: this.registerForm.get('ssnNumber').value,
     }
 
+
     if (this.randomMemberId === '') {
+      console.log('In update contions ' + this.authService.getLoggedInUserLocal());
       this.registrationCloneSuccess = true;
-      console.log('User Details Entered after cloning' + JSON.stringify(userDetails));
-      console.log('from login authservice to fetch the existing member' + this.authService.getLoggedInUserLocal());
-      localStorage.setItem(this.authService.getLoggedInUserLocal(), JSON.stringify(userDetails));
-      console.log('User Details from Storage after cloning submit ' + localStorage.getItem(this.authService.getLoggedInUserLocal()));
+      this.dataService.updateUser(userDetails, this.authService.getLoggedInUserLocal()).subscribe();
+      this.registerForm.disable();
     } else {
       this.registrationSuccess = true;
-      console.log('User Details Entered ' + JSON.stringify(userDetails));
-      localStorage.setItem("MEM123456", JSON.stringify(userDetails));
-      console.log('User Details from Storage ' + localStorage.getItem(userDetails.memberid));
+      this.dataService.createUser(userDetails).subscribe();
+      const loginDetailsNew: LoginDetails = {
+        userName: userDetails.userName,
+        password: userDetails.password,
+        id: userDetails.id
+      }
+      this.dataService.createLoginDetails(loginDetailsNew).subscribe();
     }
 
   }
 
   cloneValues() {
     console.log('Cloning Method');
-    if (this.getParamQueryStringValue()) {
-      this.clonedMemberId = this.getParamQueryStringValue();
+    if (this.getParamQuertStringValueForEdit()) {
+      this.clonedMemberId = this.getParamQuertStringValueForEdit();
       this.clonedMember = true;
       console.log('In clone Values');
       console.log('from login authservice' + this.clonedMemberId);
-      // this.loginDetails = this.authService.getLoggedInUserLocal();
-      console.log('final fetch' + localStorage.getItem(this.clonedMemberId));
-      this.userDetailsModel = JSON.parse(localStorage.getItem(this.clonedMemberId));
-      this.registerForm.get('name').setValue(this.userDetailsModel.name);
-      this.registerForm.get('userName').setValue(this.userDetailsModel.userName);
-      this.registerForm.get('inputPassword').setValue(this.userDetailsModel.password);
-      this.registerForm.get('gaurdianType').setValue(this.userDetailsModel.gaurdianType);
-      this.registerForm.get('gaurdianName').setValue(this.userDetailsModel.gaurdianName);
-      this.registerForm.get('inputAddress1').setValue(this.userDetailsModel.address);
-      this.registerForm.get('inputAddress2').setValue(this.userDetailsModel.address2);
-      this.registerForm.get('citizenShip').setValue(this.userDetailsModel.citizenShip);
-      this.registerForm.get('country').setValue(this.userDetailsModel.country);
-      this.registerForm.get('state').setValue(this.userDetailsModel.state);
-      this.registerForm.get('emailAddress').setValue(this.userDetailsModel.emailAddress);
-      this.registerForm.get('gender').setValue(this.userDetailsModel.gender);
-      this.registerForm.get('maritalStatus').setValue(this.userDetailsModel.maritalStatus);
-      this.registerForm.get('contactNo').setValue(this.userDetailsModel.contactNo);
-      this.registerForm.get('date').setValue(this.userDetailsModel.dateOfBirth);
-      this.registerForm.get('registrationDate').setValue(this.userDetailsModel.registrationDate);
-      this.registerForm.get('timeZone').setValue(this.userDetailsModel.timeZone);
-      this.registerForm.get('bloodType').setValue(this.userDetailsModel.bloodType);
-      this.registerForm.get('countryVisited').setValue(this.userDetailsModel.countryVisited);
-      this.registerForm.get('citizenStatus').setValue(this.userDetailsModel.citizenStatus);
-      this.registerForm.get('displayName').setValue(this.userDetailsModel.displayName);
-      this.registerForm.get('supplierName').setValue(this.userDetailsModel.supplierName);
-      this.registerForm.get('ssnNumber').setValue(this.userDetailsModel.ssnNumber);
+      this.dataService.getUserDetails(this.clonedMemberId).subscribe(
+        (data: UserDetails) => {
+          this.userDetailsModel = data;
+          this.registerForm.get('name').setValue(this.userDetailsModel.name);
+          this.registerForm.get('userName').setValue(this.userDetailsModel.userName);
+          this.registerForm.get('inputPassword').setValue(this.userDetailsModel.password);
+          this.registerForm.get('gaurdianType').setValue(this.userDetailsModel.gaurdianType);
+          this.registerForm.get('gaurdianName').setValue(this.userDetailsModel.gaurdianName);
+          this.registerForm.get('inputAddress1').setValue(this.userDetailsModel.address);
+          this.registerForm.get('inputAddress2').setValue(this.userDetailsModel.address2);
+          this.registerForm.get('citizenShip').setValue(this.userDetailsModel.citizenShip);
+          this.registerForm.get('country').setValue(this.userDetailsModel.country);
+          // this.registerForm.get('state').setValue(this.userDetailsModel.state);
+          this.registerForm.get('emailAddress').setValue(this.userDetailsModel.emailAddress);
+          this.registerForm.get('gender').setValue(this.userDetailsModel.gender);
+          this.registerForm.get('maritalStatus').setValue(this.userDetailsModel.maritalStatus);
+          this.registerForm.get('contactNo').setValue(this.userDetailsModel.contactNo);
+          this.registerForm.get('date').setValue(this.userDetailsModel.dateOfBirth);
+          this.registerForm.get('registrationDate').setValue(this.userDetailsModel.registrationDate);
+          this.registerForm.get('timeZone').setValue(this.userDetailsModel.timeZone);
+          this.registerForm.get('bloodType').setValue(this.userDetailsModel.bloodType);
+          this.registerForm.get('countryVisited').setValue(this.userDetailsModel.countryVisited);
+          this.registerForm.get('citizenStatus').setValue(this.userDetailsModel.citizenStatus);
+          this.registerForm.get('displayName').setValue(this.userDetailsModel.displayName);
+          this.registerForm.get('supplierName').setValue(this.userDetailsModel.supplierName);
+          this.registerForm.get('ssnNumber').setValue(this.userDetailsModel.ssnNumber);
+        }
+      );
+    }
+  }
+
+  deleteDetails() {
+    console.log('In delete');
+    if (this.getParamQueryStringValue()) {
+      console.log('delete member id ' + this.getParamQueryStringValue());
+      this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe();
+      this.dataService.deleteLoginDetails(this.getParamQueryStringValue()).subscribe();
+      this.dataService.getAppointmentDetails(this.getParamQueryStringValue()).subscribe(
+        (data: AppointmentDetails) => {
+          this.appointmentDetails = data;
+          if (this.appointmentDetails != null) {
+            this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
+          }
+        }
+      );
+      this.userDeletedSuccess = true;
     }
   }
 
   getParamQueryStringValue() {
     const url = this.router.url;
-    if (url.includes('/')) {
+    if (url.includes('delete')) {
+      console.log('In delete parama');
       const httpParams = url.split('/');
       console.log(httpParams);
-      if (httpParams[3]) {
-        return httpParams[3];
+      if (httpParams[4]) {
+        console.log('param in delete ' + httpParams[4]);
+        return httpParams[4];
       }
     }
-
   }
+
+  getParamQuertStringValueForEdit() {
+    const url = this.router.url;
+    if (url.includes('edit')) {
+      const httpParams = url.split('/');
+      console.log(httpParams);
+      if (httpParams[4]) {
+        return httpParams[4];
+      }
+    }
+  }
+
+
 }

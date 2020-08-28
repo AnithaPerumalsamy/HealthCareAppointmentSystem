@@ -9,7 +9,7 @@ export class AuthService {
     setLoggedInUserLocal(loginDetail: LoginDetails) {
         console.log('In setlocal storage');
         localStorage.setItem(keyLoggedInUserName, loginDetail.userName);
-        localStorage.setItem(keyLoggedInMemberId, loginDetail.memberId);
+        localStorage.setItem(keyLoggedInMemberId, loginDetail.id);
     }
 
     getLoggedInUserLocal() {
@@ -17,7 +17,13 @@ export class AuthService {
         if (localStorage.hasOwnProperty(keyLoggedInMemberId)) {
             console.log('storage memberId ' + localStorage.getItem(keyLoggedInMemberId));
             return localStorage.getItem(keyLoggedInMemberId);
+        } else {
+            return '';
         }
+    }
+
+    clearLocalStorageUser() {
+        localStorage.clear();
     }
 
 }

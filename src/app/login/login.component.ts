@@ -5,7 +5,7 @@ import { LoginDetails } from '../models/LoginDetails';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-
+import { DataService } from '../service/DataService';
 
 @Component({
   selector: 'app-login',
@@ -26,12 +26,9 @@ export class LoginComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService, private dataService: DataService) { }
 
   ngOnInit(): void {
-
-    this.http.get('./assets/Anitha.json')
-      .subscribe((data) => this.displaydata(data));
 
     this.loginForm = this._formBuilder.group({
       userName: ['', Validators.required],
@@ -40,42 +37,42 @@ export class LoginComponent implements OnInit {
 
   }
 
-  displaydata(data) {
-    this.loginDetails = data;
-    console.log('Input JSON file users ' + JSON.stringify(this.loginDetails));
-  }
 
   loginUser() {
     console.log(this.loginForm.get('userName').value);
     console.log(this.loginForm.get('password').value);
     this.isValidUser = false;
-    if (this.loginDetails != null) {
-      this.loginDetails.forEach(loginDetail => {
-        if (loginDetail.userName === this.loginForm.get('userName').value) {
-          if (loginDetail.password === this.loginForm.get('password').value) {
-            this.isValidUser = true;
-            this.memberId = loginDetail.memberId
-            this.authService.setLoggedInUserLocal(loginDetail);
-            console.log(this.memberId);
-          } else {
-            this.isValidUser = false;
+    this.dataService.getLoginDetails().subscribe(
+      (data: LoginDetails[]) => {
+        this.loginDetails = data;
+        console.log('Data' + JSON.stringify(this.loginDetails));
+        this.loginDetails.forEach(loginDetail => {
+          if (loginDetail.userName === this.loginForm.get('userName').value) {
+            if (loginDetail.password === this.loginForm.get('password').value) {
+              console.log('In valid');
+              this.isValidUser = true;
+              this.memberId = loginDetail.id
+              this.authService.setLoggedInUserLocal(loginDetail);
+              console.log(this.memberId);
+            } else {
+              this.isValidUser = false;
+            }
           }
+        });
+        if (this.isValidUser) {
+          console.log('Valid User');
+          console.log(this.authService.getLoggedInUserLocal());
+          this.router.navigateByUrl('/');
+        } else {
+          console.log('InValid User');
+          this.errorMessage = 'Invalid UserName or Password. If you are new user kindly click on Register to login.';
         }
       });
-    }
-    if (this.isValidUser) {
-      console.log('Valid User');
-      console.log(this.authService.getLoggedInUserLocal());
-      this.router.navigateByUrl('/');
-    } else {
-      console.log('InValid User');
-      this.errorMessage = 'User doesnt exist. Kindly Register to login';
-    }
+
   }
 
   get loginFormCtrl() {
     return this.loginForm.controls;
   }
-
 
 }

@@ -1,0 +1,82 @@
+{
+  "loginDetails": [
+    {
+      "userName": "Anitha",
+      "password": "password",
+      "memberId": "MEM123456"
+    },
+    {
+      "userName": "TestUser1",
+      "password": "user1",
+      "memberId": "MEM123457"
+    },
+    {
+      "userName": "user",
+      "password": "user",
+      "id": "MEM138260"
+    },
+    {
+      "userName": "user3",
+      "password": "user3",
+      "id": "MEM311871"
+    }
+  ],
+  "userDetails": [
+    {},
+    {
+      "id": "MEM740673",
+      "name": "Test User register",
+      "userName": "Anitha",
+      "password": "ds",
+      "gaurdianType": "husband",
+      "gaurdianName": "Miller",
+      "address": "23",
+      "address2": "sds",
+      "citizenShip": "sdsd",
+      "state": 1,
+      "country": "2",
+      "emailAddress": "anitha@gmail.com",
+      "gender": "F",
+      "maritalStatus": "single",
+      "contactNo": 9965518801,
+      "dateOfBirth": "2020-08-24T18:30:00.000Z",
+      "registrationDate": "2020-08-27",
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "bloodType": "O-ve",
+      "countryVisited": "sdsd",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Anitha Perumal",
+      "supplierName": "Supplier 1",
+      "ssnNumber": "sdsd"
+    },
+    {
+      "id": "MEM138260",
+      "name": "mcuser",
+      "userName": "user",
+      "password": "user",
+      "gaurdianType": "husband",
+      "gaurdianName": "user2",
+      "address": "23",
+      "address2": "address",
+      "citizenShip": "Australian",
+      "state": "2",
+      "country": "6",
+      "emailAddress": "christ@gmail.com",
+      "gender": "F",
+      "maritalStatus": "single",
+      "contactNo": 9965518801,
+      "dateOfBirth": "2013-05-14T18:30:00.000Z",
+      "registrationDate": "2020-08-28",
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "bloodType": "O+ve",
+      "countryVisited": "sdsd",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "sdsd",
+      "supplierName": "Supplier 1",
+      "ssnNumber": "5frt5"
+    }
+  ],
+  "appointmentDetails": [
+    {}
+  ]
+}

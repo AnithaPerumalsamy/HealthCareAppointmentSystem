@@ -1,6 +1,5 @@
 <form [formGroup]="registerForm" (submit)="registerUser()">
-  <h1> Customer Registration Form </h1>
-  <a class="nav-link" [routerLink]="['/header']" routerLinkActive="active">LogOut </a>
+  <h1 style="color: green; font-weight: bold; font-style: normal; font-size: x-large;"> Customer Registration Form </h1>
   <div class="form-group col-md-4">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" formControlName="name">
@@ -69,14 +68,14 @@
     <div class="form-group col-md-4">
       <label>Country</label>
       <select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)" formControlName="country">
-
+        <option value="0">--Select--</option>
         <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
       </select>
     </div>
     <div class="form-group col-md-4">
       <label>State</label>
       <select formControlName="state">
-
+        <option value="0">--Select--</option>
         <option *ngFor="let state of states " value={{state.id}}>{{state.name}}</option>
       </select>
     </div>
@@ -126,15 +125,15 @@
   <div class="form-group col-md-4">
     <label for="date">Date of Birth</label>
     <input type="text" name="begin" bsDatepicker formControlName="date" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-      [minDate]="minDate" [maxDate]="maxDate">
+      [minDate]="minDate" [maxDate]="maxDate" (ngModelChange)="ageFromDateOfBirthday($event)">
     <div style='color:red'>
       <error *ngIf="registerFormCtrl.date.errors?.required">Date of Birth is a Mandatory Field</error>
     </div>
   </div>
   <div class="form-group col-md-4">
     <label for="registrationDate">Registration Date</label>
-    <input type="text" [disabled]="disableRegistrationDate" (click)="getDate()" class="form-control"
-      id="registrationDate" formControlName="registrationDate" editable="false">
+    <input type="text" disabled class="form-control" id="registrationDate" formControlName="registrationDate"
+      editable="false">
   </div>
   <div class="form-group col-md-4">
     <label for="timeZone">TimeZone</label>
@@ -169,8 +168,8 @@
   </div>
   <div class="form-group col-md-4">
     <label for="citizenStatus">Citizen Status</label>
-    <input type="text" (click)="ageFromDateOfBirthday()" class="form-control" id="citizenStatus"
-      formControlName="citizenStatus">
+    <input type="text" class="form-control" id="citizenStatus" formControlName="citizenStatus"
+      [disabled]="disableCitizenField">
     <div *ngIf="age" style='color: green'>
       Age of the user is: {{age}}
     </div>
@@ -189,10 +188,27 @@
   </div>
   <div class="input">
     <input type="submit" value="Submit" class="btn btn-primary" [disabled]="!registerForm.valid">
-    <div *ngIf=" registrationSuccess" style='color: green'>
-      User registration Successfull. Member id is {{ randomMemberId}}
+    <div class="row" *ngIf="registrationSuccess">
+      <div class="col-xs-12">
+        <p class="alert alert-success">
+          <strong>User Registration Success! Member id is {{ randomMemberId}}</strong> Please click here to login!.
+          <a class="nav-link" [routerLink]="['register/login']" routerLinkActive="active">Login</a>
+        </p>
+      </div>
     </div>
-    <div *ngIf="registrationCloneSuccess" style='color: green'> Personal details updated successfully
+    <div *ngIf="registrationCloneSuccess" style='color: green'>
+      <div class="col-xs-12">
+        <p class="alert alert-success">
+          <strong>Personal details updated successfully</strong>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="userDeletedSuccess" style='color: green'>
+      <div class="col-xs-12">
+        <p class="alert alert-success">
+          <strong> User Deleted Successfully</strong>
+        </p>
+      </div>
     </div>
   </div>
 </form>

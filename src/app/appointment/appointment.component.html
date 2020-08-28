@@ -1,56 +1,96 @@
-<form [formGroup]="appointmentForm" (submit)="bookAppointment()">
-    <h1> Book Appointment </h1>
-    <a class="nav-link" [routerLink]="['/header']" routerLinkActive="active">LogOut </a>
-    <div class="form-group col-md-4">
-        <label for="timeZone">TimeZone</label>
-        <select formControlName="timeZone">
-            <option *ngFor="let timeZone of TimeZones" [value]="timeZone.id">
-                {{timeZone.name}}
-            </option>
-        </select>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="appointmentType">Appointment Type </label>
-        <select formControlName="appointmentType">
-            <option *ngFor="let appointmentType of AppointmentTypes" [value]="appointmentType.id">
-                {{appointmentType.name}}
-            </option>
-        </select>
-    </div>
-    <div class="form-group col-md-4">
-        <label for="dateOfBirth">Start Date</label>
-        <input type="text" name="begin" bsDatepicker formControlName="dateOfBirth"
-            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate">
-    </div>
+<div *ngIf="loginSuccess ; else notLoggedIn">
+    <form [formGroup]="appointmentForm" (submit)="bookAppointment()">
+        <h1 style="color: green; font-weight: bold; font-style: normal; font-size: x-large;"> Book Appointment </h1>
+        <div class="form-group col-md-4">
+            <label for="timeZone">TimeZone</label>
+            <select formControlName="timeZone">
+                <option *ngFor="let timeZone of TimeZones" [value]="timeZone.id">
+                    {{timeZone.name}}
+                </option>
+            </select>
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.timeZone.errors?.required">TimeZone is a Mandatory field. Kindly
+                    select
+                    one
+                    from drop down</error>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="appointmentType">Appointment Type </label>
+            <select formControlName="appointmentType">
+                <option *ngFor="let appointmentType of AppointmentTypes" [value]="appointmentType.id">
+                    {{appointmentType.name}}
+                </option>
+            </select>
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.appointmentType.errors?.required">Appointment Type is a Mandatory
+                    field.
+                    Kindly select one
+                    from drop down</error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="startDate">Start Date</label>
+            <input type="text" name="begin" bsDatepicker formControlName="startDate"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate">
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.startDate.errors?.required">Start Date is a Mandatory field.</error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="startTime">Start Time</label>
+            <input [ngxTimepicker]="fullTime" formControlName="startTime" [format]="24" [min]="finalMinTime">
+            <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.startTime.errors?.required">Start Time is a Mandatory field.</error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="endTime">End Time</label>
+            <input [ngxTimepicker]="fullTime1" formControlName="endTime" [format]="24" [min]="finalMinTime"
+                (ngModelChange)="checkEndDate($event)">
+            <ngx-material-timepicker #fullTime1></ngx-material-timepicker>
+            <div *ngIf="inValidEndDate" style='color:red'>
+                End date should be greater than Start Date
+            </div>
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.endTime.errors?.required">End Time is a Mandatory field.</error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" formControlName="title">
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.title.errors?.required">Title is a Mandatory field.</error>
+                <error *ngIf="appointmentFormCtrl.title.errors?.maxLength">Title cannot exceed 50 characters</error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" formControlName="location">
+            <div style='color:red'>
+                <error *ngIf="appointmentFormCtrl.location.errors?.required">Location is a Mandatory field.</error>
+                <error *ngIf="appointmentFormCtrl.location.errors?.maxLength">Location cannot exceed 50 characters
+                </error>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="comments">Comments</label>
+            <input type="text" class="form-control" id="comments" formControlName="comments">
+        </div>
+        <div class="input">
+            <input type="submit" value="Book Appointment" class="btn btn-primary" [disabled]="!appointmentForm.valid">
+            <div *ngIf="appointmentCreatedSuccess">
+                Appointment Booked Successfully. Details will be notified to the contact no {{contactNo}}
+            </div>
 
-    <div class="form-group col-md-4">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" formControlName="title">
-    </div>
-
-    <div class="form-group col-md-4">
-        <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" formControlName="location">
-    </div>
-
-    <div class="form-group col-md-4">
-        <label for="comments">Comments</label>
-        <input type="text" class="form-control" id="comments" formControlName="comments">
-    </div>
-    <div class="form-group col-md-4">
-        <label for="startTime">Start Time</label>
-        <input [ngxTimepicker]="picker" formControlName="startTime">
-        <ngx-material-timepicker #picker></ngx-material-timepicker>
-    </div>
-
-    <div class="form-group col-md-4">
-        <input formControlName="endTime">
-        <ngb-timepicker></ngb-timepicker>
-    </div>
-
-
-    <div class="input">
-        <input type="submit" value="Submit" class="btn btn-primary">
-
-    </div>
-</form>
+            <div *ngIf="updatedAppointmentSuccess">
+                Appointment Details updated Successfully.
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<ng-template #notLoggedIn>
+    Kindly login to continue Booking Appointment.
+</ng-template>

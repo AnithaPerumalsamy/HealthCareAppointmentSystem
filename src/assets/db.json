@@ -1,0 +1,20 @@
+{
+    "loginDetails": [
+        {
+            "userName": "Anitha",
+            "password": "password",
+            "id": "MEM123456"
+        },
+        {
+            "userName": "TestUser1",
+            "password": "user1",
+            "id": "MEM123457"
+        }
+    ],
+    "userDetails": [
+        {}
+    ],
+    "appointmentDetails": [
+        {}
+    ]
+}

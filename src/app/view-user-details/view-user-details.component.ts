@@ -6,6 +6,7 @@ import { cloneValues, RegisterComponent } from '../register/register.component';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DropDownService } from '../service/DropDownService';
+import { DataService } from '../service/DataService';
 
 @Component({
   selector: 'app-view-user-details',
@@ -17,7 +18,7 @@ export class ViewUserDetailsComponent implements OnInit {
   memberId: string;
   userDetails: UserDetails;
   editClicked = false;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private dataService: DataService) { }
 
   ngOnInit(): void {
     console.log('LoggedInUserMethod in view page');
@@ -27,7 +28,10 @@ export class ViewUserDetailsComponent implements OnInit {
   }
 
   viewDetails() {
-    this.userDetails = JSON.parse(localStorage.getItem(this.memberId));
-    console.log('Getting User details ' + JSON.stringify(this.userDetails));
+    this.dataService.getUserDetails(this.memberId).subscribe(
+      (data: UserDetails) => {
+        this.userDetails = data;
+      }
+    );
   }
 }

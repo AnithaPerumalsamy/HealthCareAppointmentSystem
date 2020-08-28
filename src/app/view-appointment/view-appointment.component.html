@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <a class="nav-link" [routerLink]="['/viewAppointment/appointment/'+ 'edit' +'/' + memberId]"
+                routerLinkActive="active" [class.disabled]="!appointmentDetails">Edit Appointment Details
+            </a>
+            <a class="nav-link" [routerLink]="['/viewAppointment/deleteUser/'  + 'delete' + '/'+ memberId]"
+                routerLinkActive="active" [class.disbled]="!appointmentDetails">Delete Appointment Details
+            </a>
+        </ul>
+    </div>
+</nav>
+<div>
+    <h3> Appointment Details </h3>
+    <div *ngIf="appointmentDetails; else noDetails">
+        <div *ngIf="appointmentDetails?.timeZone">
+            <tr>
+                <td style="color: green;">Time Zone: {{appointmentDetails?.timeZone}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.appointmentType">
+            <tr>
+                <td style="color: green;">Appointment Type: {{appointmentDetails?.appointmentType}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.startDate">
+            <tr>
+                <td style="color: green;">Start Date: {{appointmentDetails?.startDate}}</td>
+            </tr>
+        </div>
+        <div *ngIf=" appointmentDetails?.title">
+            <tr>
+                <td style="color: green;">Title: {{appointmentDetails?.title}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.startTime">
+            <tr>
+                <td style="color: green;">Start Time: {{appointmentDetails?.startTime}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.endTime">
+            <tr>
+                <td style="color: green;">End Time: {{appointmentDetails?.endTime}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.location">
+            <tr>
+                <td style="color: green;">Location: {{appointmentDetails?.location}}</td>
+            </tr>
+        </div>
+        <div *ngIf="appointmentDetails?.comments">
+            <tr>
+                <td style="color: green;">Comments: {{appointmentDetails?.comments}}</td>
+            </tr>
+        </div>
+    </div>
+    <ng-template #noDetails>
+        No Booking Appointments made for the user
+    </ng-template>
+
+</div>
