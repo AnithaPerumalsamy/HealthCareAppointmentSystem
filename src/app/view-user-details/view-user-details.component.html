@@ -1,130 +1,135 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link" [routerLink]="['/view/register/'+ 'edit' +'/' + memberId]"
-                routerLinkActive="active">Edit User
-                Details
-            </a>
-            <a class="nav-link" [routerLink]="['/view/deleteUser/'  + 'delete' + '/'+ memberId]"
-                routerLinkActive="active">Delete User
-                Details
-            </a>
-        </ul>
+<div *ngIf="loginSuccess ; else notLoggedIn">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <a class="nav-link" [routerLink]="['/view/register/'+ 'edit' +'/' + memberId]"
+                    routerLinkActive="active">Edit User
+                    Details
+                </a>
+                <a class="nav-link" [routerLink]="['/view/deleteUser/'  + 'delete' + '/'+ memberId]"
+                    routerLinkActive="active">Delete User
+                    Details
+                </a>
+            </ul>
+        </div>
+    </nav>
+    <div *ngIf="userDetails; else noUserDetails">
+        <h3> User Details </h3>
+        <div *ngIf=" userDetails?.name">
+            <tr>
+                <td style="color: green;">Name: {{userDetails?.name}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.userName">
+            <tr>
+                <td style="color: green;">UserName: {{userDetails?.userName}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.gaurdianType">
+            <tr>
+                <td style="color: green;">Gaurdian Type: {{userDetails?.gaurdianType}}</td>
+            </tr>
+        </div>
+        <div *ngIf=" userDetails?.gaurdianName">
+            <tr>
+                <td style="color: green;">Gaurdian Name: {{userDetails?.gaurdianName}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.address">
+            <tr>
+                <td style="color: green;">Address: {{userDetails?.address}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.address2">
+            <tr>
+                <td style="color: green;">Address2: {{userDetails?.address2}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.citizenShip">
+            <tr>
+                <td style="color: green;">CitizenShip: {{userDetails?.citizenShip}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.state">
+            <tr>
+                <td style="color: green;">State: {{userDetails?.state}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.country">
+            <tr>
+                <td style="color: green;">Country: {{userDetails?.country}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.emailAddress">
+            <tr>
+                <td style="color: green;">Email Address: {{userDetails?.emailAddress}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.gender">
+            <tr>
+                <td style="color: green;">Gender: {{userDetails?.gender}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.maritalStatus">
+            <tr>
+                <td style="color: green;">Marital Status: {{userDetails?.maritalStatus}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.contactNo">
+            <tr>
+                <td style="color: green;">Contact No: {{userDetails?.contactNo}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.dateOfBirth">
+            <tr>
+                <td style="color: green;">Date Of Birth: {{userDetails?.dateOfBirth}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.registrationDate">
+            <tr>
+                <td style="color: green;">Registration Date: {{userDetails?.registrationDate}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.timeZone">
+            <tr>
+                <td style="color: green;">Time Zone:{{userDetails?.timeZone}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.bloodType">
+            <tr>
+                <td style="color: green;">Blood Type:{{userDetails?.bloodType}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.countryVisited">
+            <tr>
+                <td style="color: green;">Country Visited:{{userDetails?.countryVisited}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.citizenStatus">
+            <tr>
+                <td style="color: green;">Citizen Status:{{userDetails?.citizenStatus}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.displayName">
+            <tr>
+                <td style="color: green;">Display Name:{{userDetails?.displayName}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.supplierName">
+            <tr>
+                <td style="color: green;">Supplier Name:{{userDetails?.supplierName}}</td>
+            </tr>
+        </div>
+        <div *ngIf="userDetails?.ssnNumber">
+            <tr>
+                <td style="color: green;">SSN Number:{{userDetails?.ssnNumber}}</td>
+            </tr>
+        </div>
     </div>
-</nav>
-<div *ngIf="userDetails; else noUserDetails">
-    <h3> User Details </h3>
-    <div *ngIf=" userDetails?.name">
-        <tr>
-            <td style="color: green;">Name: {{userDetails?.name}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.userName">
-        <tr>
-            <td style="color: green;">UserName: {{userDetails?.userName}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.gaurdianType">
-        <tr>
-            <td style="color: green;">Gaurdian Type: {{userDetails?.gaurdianType}}</td>
-        </tr>
-    </div>
-    <div *ngIf=" userDetails?.gaurdianName">
-        <tr>
-            <td style="color: green;">Gaurdian Name: {{userDetails?.gaurdianName}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.address">
-        <tr>
-            <td style="color: green;">Address: {{userDetails?.address}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.address2">
-        <tr>
-            <td style="color: green;">Address2: {{userDetails?.address2}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.citizenShip">
-        <tr>
-            <td style="color: green;">CitizenShip: {{userDetails?.citizenShip}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.state">
-        <tr>
-            <td style="color: green;">State: {{userDetails?.state}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.country">
-        <tr>
-            <td style="color: green;">Country: {{userDetails?.country}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.emailAddress">
-        <tr>
-            <td style="color: green;">Email Address: {{userDetails?.emailAddress}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.gender">
-        <tr>
-            <td style="color: green;">Gender: {{userDetails?.gender}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.maritalStatus">
-        <tr>
-            <td style="color: green;">Marital Status: {{userDetails?.maritalStatus}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.contactNo">
-        <tr>
-            <td style="color: green;">Contact No: {{userDetails?.contactNo}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.dateOfBirth">
-        <tr>
-            <td style="color: green;">Date Of Birth: {{userDetails?.dateOfBirth}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.registrationDate">
-        <tr>
-            <td style="color: green;">Registration Date: {{userDetails?.registrationDate}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.timeZone">
-        <tr>
-            <td style="color: green;">Time Zone:{{userDetails?.timeZone}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.bloodType">
-        <tr>
-            <td style="color: green;">Blood Type:{{userDetails?.bloodType}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.countryVisited">
-        <tr>
-            <td style="color: green;">Country Visited:{{userDetails?.countryVisited}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.citizenStatus">
-        <tr>
-            <td style="color: green;">Citizen Status:{{userDetails?.citizenStatus}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.displayName">
-        <tr>
-            <td style="color: green;">Display Name:{{userDetails?.displayName}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.supplierName">
-        <tr>
-            <td style="color: green;">Supplier Name:{{userDetails?.supplierName}}</td>
-        </tr>
-    </div>
-    <div *ngIf="userDetails?.ssnNumber">
-        <tr>
-            <td style="color: green;">SSN Number:{{userDetails?.ssnNumber}}</td>
-        </tr>
-    </div>
+    <ng-template #noUserDetails>
+        Personal details not available for the user.
+    </ng-template>
 </div>
-<ng-template #noUserDetails>
-    Personal details not available for the user.
+<ng-template #notLoggedIn>
+    Kindly login to view/edit/delete appointments
 </ng-template>

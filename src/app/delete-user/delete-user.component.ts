@@ -23,22 +23,17 @@ export class DeleteUserComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.deleteAppointmentDetails();
+    this.deleteUserDetails();
   }
 
-  deleteAppointmentDetails() {
+  deleteUserDetails() {
     this.userDetails == null;
     console.log('In delete');
     if (this.getParamQueryStringValue()) {
       console.log('delete member id ' + this.getParamQueryStringValue());
-      this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe(
-        (data: UserDetails) => {
-          this.userDetails = data;
-          if (this.userDetails != null) {
-            this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
-          }
-        }
-      );
+      this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe();
+      this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
+      this.dataService.deleteLoginDetails(this.getParamQueryStringValue()).subscribe();
       this.userDeletedSuccess = true;
     }
   }

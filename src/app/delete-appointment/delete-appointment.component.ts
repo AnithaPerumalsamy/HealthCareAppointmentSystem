@@ -31,14 +31,7 @@ export class DeleteAppointmentComponent implements OnInit {
     console.log('In delete');
     if (this.getParamQueryStringValue()) {
       console.log('delete member id ' + this.getParamQueryStringValue());
-      this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe(
-        (data: AppointmentDetails) => {
-          this.appointmentDetails = data;
-          if (this.appointmentDetails != null) {
-            this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
-          }
-        }
-      );
+      this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
       this.appointmentDeletedSuccess = true;
     }
   }

@@ -3,14 +3,13 @@ import { DropDownType } from '../app.const';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserDetails } from '../models/UserDetails';
 import { HttpClient } from '@angular/common/http';
-import { Country } from '../models/Country';
-import { State } from '../models/State';
 import { DropDownService } from '../service/DropDownService';
 import { AuthService } from '../service/auth.service';
 import { LoginDetails } from '../models/LoginDetails';
 import { Router } from '@angular/router';
 import { DataService } from '../service/DataService';
 import { AppointmentDetails } from '../models/AppointmentDetails';
+import { DatePipe } from '@angular/common';
 export function cloneValues() {
 
 }
@@ -49,14 +48,21 @@ export class RegisterComponent implements OnInit {
     { id: 'O-ve', name: 'O-ve' }
   ];
 
+  countryList: Array<any> = [
+    { name: 'Germany', states: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn'] },
+    { name: 'Spain', states: ['Barcelona'] },
+    { name: 'USA', states: ['Downers Grove'] },
+    { name: 'Mexico', states: ['Puebla'] },
+    { name: 'China', states: ['Beijing'] },
+    { name: 'India', states: ['Andra Pradesh', 'TamilNadu'] },
+  ];
+  states: Array<any>;
+
   registerForm: FormGroup;
   age: number;
   citizenStatus: string;
   randomMemberId: string = '';
   computedDate: string;
-  countries: Country[];
-  states: State[];
-  selectedCountry: Country = new Country(1, 'India');
   minDate: Date;
   maxDate: Date;
   userDetailsModel: UserDetails;
@@ -73,15 +79,13 @@ export class RegisterComponent implements OnInit {
     private http: HttpClient,
     private dropDownService: DropDownService,
     private authService: AuthService,
-    private router: Router, private dataService: DataService) { }
+    private router: Router, private dataService: DataService,
+    private datePipe: DatePipe) { }
 
   ngOnInit(): void {
 
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
-
-    this.countries = this.dropDownService.getCountries();
-    this.onSelect(this.selectedCountry.id);
 
     this.registerForm = this._formBuilder.group({
       name: [
@@ -120,23 +124,18 @@ export class RegisterComponent implements OnInit {
       registrationDate: [''],
       timeZone: ['', Validators.required],
       bloodType: ['', Validators.required],
-      countryVisited: [''],
+      countryVisited: [],
       citizenStatus: ['', Validators.required],
-      displayName: [''],
+      displayName: [],
       supplierName: ['', Validators.required],
-      ssnNumber: ['']
+      ssnNumber: []
     });
     this.getDate();
     this.cloneValues();
-    this.deleteDetails();
   }
 
   get registerFormCtrl() {
     return this.registerForm.controls;
-  }
-
-  onSelect(countryid) {
-    this.states = this.dropDownService.getStates().filter((item) => item.countryid == countryid);
   }
 
   getDate() {
@@ -176,6 +175,7 @@ export class RegisterComponent implements OnInit {
       console.log(this.randomMemberId);
     }
     console.log('Empty ' + this.randomMemberId);
+    console.log('State ' + this.registerForm.get('state').value);
     const userDetails: UserDetails = {
       id: this.randomMemberId,
       name: this.registerForm.get('name').value,
@@ -186,13 +186,13 @@ export class RegisterComponent implements OnInit {
       address: this.registerForm.get('inputAddress1').value,
       address2: this.registerForm.get('inputAddress2').value,
       citizenShip: this.registerForm.get('citizenShip').value,
-      state: this.registerForm.get('country').value,
-      country: this.registerForm.get('state').value,
+      state: this.registerForm.get('state').value,
+      country: this.registerForm.get('country').value,
       emailAddress: this.registerForm.get('emailAddress').value,
       gender: this.registerForm.get('gender').value,
       maritalStatus: this.registerForm.get('maritalStatus').value,
       contactNo: this.registerForm.get('contactNo').value,
-      dateOfBirth: this.registerForm.get('date').value,
+      dateOfBirth: this.datePipe.transform(this.registerForm.get('date').value, "dd/MM/yyyy"),
       registrationDate: this.registerForm.get('registrationDate').value,
       timeZone: this.registerForm.get('timeZone').value,
       bloodType: this.registerForm.get('bloodType').value,
@@ -207,17 +207,38 @@ export class RegisterComponent implements OnInit {
     if (this.randomMemberId === '') {
       console.log('In update contions ' + this.authService.getLoggedInUserLocal());
       this.registrationCloneSuccess = true;
-      this.dataService.updateUser(userDetails, this.authService.getLoggedInUserLocal()).subscribe();
+      this.dataService.updateUser(userDetails, this.authService.getLoggedInUserLocal()).subscribe(
+        res => {
+          console.log('Updated User Details ' + JSON.stringify(res));
+        },
+        err => {
+          console.log('Update User details failed');
+        }
+      );
       this.registerForm.disable();
     } else {
       this.registrationSuccess = true;
-      this.dataService.createUser(userDetails).subscribe();
+      this.dataService.createUser(userDetails).subscribe(
+        res => {
+          console.log('Create New User ' + JSON.stringify(res));
+        },
+        err => {
+          console.log('Create new user faile');
+        }
+      );
       const loginDetailsNew: LoginDetails = {
         userName: userDetails.userName,
         password: userDetails.password,
         id: userDetails.id
       }
-      this.dataService.createLoginDetails(loginDetailsNew).subscribe();
+      this.dataService.createLoginDetails(loginDetailsNew).subscribe(
+        res => {
+          console.log('Login Details: ' + JSON.stringify(res));
+        },
+        err => {
+          console.log('In Error');
+        },
+      );
     }
 
   }
@@ -230,8 +251,9 @@ export class RegisterComponent implements OnInit {
       console.log('In clone Values');
       console.log('from login authservice' + this.clonedMemberId);
       this.dataService.getUserDetails(this.clonedMemberId).subscribe(
-        (data: UserDetails) => {
-          this.userDetailsModel = data;
+        res => {
+          console.log('Fetch user Details during Edit ' + res);
+          this.userDetailsModel = res;
           this.registerForm.get('name').setValue(this.userDetailsModel.name);
           this.registerForm.get('userName').setValue(this.userDetailsModel.userName);
           this.registerForm.get('inputPassword').setValue(this.userDetailsModel.password);
@@ -241,7 +263,7 @@ export class RegisterComponent implements OnInit {
           this.registerForm.get('inputAddress2').setValue(this.userDetailsModel.address2);
           this.registerForm.get('citizenShip').setValue(this.userDetailsModel.citizenShip);
           this.registerForm.get('country').setValue(this.userDetailsModel.country);
-          // this.registerForm.get('state').setValue(this.userDetailsModel.state);
+          this.registerForm.get('state').setValue(this.userDetailsModel.state);
           this.registerForm.get('emailAddress').setValue(this.userDetailsModel.emailAddress);
           this.registerForm.get('gender').setValue(this.userDetailsModel.gender);
           this.registerForm.get('maritalStatus').setValue(this.userDetailsModel.maritalStatus);
@@ -255,39 +277,10 @@ export class RegisterComponent implements OnInit {
           this.registerForm.get('displayName').setValue(this.userDetailsModel.displayName);
           this.registerForm.get('supplierName').setValue(this.userDetailsModel.supplierName);
           this.registerForm.get('ssnNumber').setValue(this.userDetailsModel.ssnNumber);
+        }, err => {
+          console.log('Fetch user details during edit failed');
         }
       );
-    }
-  }
-
-  deleteDetails() {
-    console.log('In delete');
-    if (this.getParamQueryStringValue()) {
-      console.log('delete member id ' + this.getParamQueryStringValue());
-      this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe();
-      this.dataService.deleteLoginDetails(this.getParamQueryStringValue()).subscribe();
-      this.dataService.getAppointmentDetails(this.getParamQueryStringValue()).subscribe(
-        (data: AppointmentDetails) => {
-          this.appointmentDetails = data;
-          if (this.appointmentDetails != null) {
-            this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
-          }
-        }
-      );
-      this.userDeletedSuccess = true;
-    }
-  }
-
-  getParamQueryStringValue() {
-    const url = this.router.url;
-    if (url.includes('delete')) {
-      console.log('In delete parama');
-      const httpParams = url.split('/');
-      console.log(httpParams);
-      if (httpParams[4]) {
-        console.log('param in delete ' + httpParams[4]);
-        return httpParams[4];
-      }
     }
   }
 
@@ -300,6 +293,12 @@ export class RegisterComponent implements OnInit {
         return httpParams[4];
       }
     }
+  }
+
+
+  changeCountry(count) {
+    console.log('In change country ' + count);
+    this.states = this.countryList.find(con => con.name == count).states;
   }
 
 

@@ -14,7 +14,7 @@ export class UserDetails {
     gender: string;
     maritalStatus: string;
     contactNo: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     registrationDate: Date;
     timeZone: string;
     bloodType: string;

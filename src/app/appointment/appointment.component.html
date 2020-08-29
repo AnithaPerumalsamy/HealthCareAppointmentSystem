@@ -34,20 +34,22 @@
             <input type="text" name="begin" bsDatepicker formControlName="startDate"
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate">
             <div style='color:red'>
-                <error *ngIf="appointmentFormCtrl.startDate.errors?.required">Start Date is a Mandatory field.</error>
+                <error *ngIf="appointmentFormCtrl.startDate.errors?.required">Start Date is a Mandatory field.
+                </error>
             </div>
         </div>
         <div class="form-group col-md-4">
             <label for="startTime">Start Time</label>
-            <input [ngxTimepicker]="fullTime" formControlName="startTime" [format]="24" [min]="finalMinTime">
+            <input [ngxTimepicker]="fullTime" formControlName="startTime" [format]="24">
             <ngx-material-timepicker #fullTime></ngx-material-timepicker>
             <div style='color:red'>
-                <error *ngIf="appointmentFormCtrl.startTime.errors?.required">Start Time is a Mandatory field.</error>
+                <error *ngIf="appointmentFormCtrl.startTime.errors?.required">Start Time is a Mandatory field.
+                </error>
             </div>
         </div>
         <div class="form-group col-md-4">
             <label for="endTime">End Time</label>
-            <input [ngxTimepicker]="fullTime1" formControlName="endTime" [format]="24" [min]="finalMinTime"
+            <input [ngxTimepicker]="fullTime1" formControlName="endTime" [format]="24"
                 (ngModelChange)="checkEndDate($event)">
             <ngx-material-timepicker #fullTime1></ngx-material-timepicker>
             <div *ngIf="inValidEndDate" style='color:red'>
@@ -80,12 +82,19 @@
         </div>
         <div class="input">
             <input type="submit" value="Book Appointment" class="btn btn-primary" [disabled]="!appointmentForm.valid">
-            <div *ngIf="appointmentCreatedSuccess">
-                Appointment Booked Successfully. Details will be notified to the contact no {{contactNo}}
+            <div *ngIf="appointmentCreatedSuccess" style='color: green'>
+                <div class="col-xs-12">
+                    <p class="alert alert-success">
+                        Appointment Booked Successfully. Details will be notified to the contact no {{contactNo}}
+                    </p>
+                </div>
             </div>
-
-            <div *ngIf="updatedAppointmentSuccess">
-                Appointment Details updated Successfully.
+            <div *ngIf="updatedAppointmentSuccess" style='color: green'>
+                <div class="col-xs-12">
+                    <p class="alert alert-success">
+                        Appointment Details updated Successfully.
+                    </p>
+                </div>
             </div>
         </div>
     </form>

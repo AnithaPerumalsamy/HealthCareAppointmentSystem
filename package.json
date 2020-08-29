@@ -28,7 +28,7 @@
     "ngx-bootstrap": "^5.6.1",
     "ngx-material-timepicker": "^5.5.3",
     "node-json-db": "^1.1.0",
-    "rxjs": "~6.5.5",
+    "rxjs": "^6.5.5",
     "tslib": "^2.0.0",
     "typescript-require": "^0.3.0",
     "write-json-file": "^4.3.0",

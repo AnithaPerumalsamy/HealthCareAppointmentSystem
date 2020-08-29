@@ -19,6 +19,21 @@
       "userName": "user3",
       "password": "user3",
       "id": "MEM311871"
+    },
+    {
+      "userName": "christ",
+      "password": "christ",
+      "id": "MEM582315"
+    },
+    {
+      "userName": "country",
+      "password": "country",
+      "id": "MEM222520"
+    },
+    {
+      "userName": "data",
+      "password": "data",
+      "id": "MEM433636"
     }
   ],
   "userDetails": [
@@ -74,9 +89,83 @@
       "displayName": "sdsd",
       "supplierName": "Supplier 1",
       "ssnNumber": "5frt5"
+    },
+    {
+      "id": "MEM222520",
+      "name": "test country",
+      "userName": "country",
+      "password": "country",
+      "gaurdianType": "father",
+      "gaurdianName": "rt",
+      "address": "67",
+      "address2": "yu",
+      "citizenShip": "Indian citizen",
+      "state": "TamilNadu",
+      "country": "India",
+      "emailAddress": "user@gmail.com",
+      "gender": "F",
+      "maritalStatus": "single",
+      "contactNo": 7890654325,
+      "dateOfBirth": "2014-08-12T18:30:00.000Z",
+      "registrationDate": "2020-08-29",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "bloodType": "O+ve",
+      "countryVisited": "India",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Tesr user",
+      "supplierName": "dssd",
+      "ssnNumber": "ssn785"
+    },
+    {
+      "id": "MEM433636",
+      "name": "check data",
+      "userName": "data",
+      "password": "data",
+      "gaurdianType": "father",
+      "gaurdianName": "fr",
+      "address": "34",
+      "address2": "tyh",
+      "citizenShip": "Indian",
+      "state": null,
+      "country": "Mexico",
+      "emailAddress": "anitha@gmail.com",
+      "gender": "F",
+      "maritalStatus": "single",
+      "contactNo": 9967789809,
+      "dateOfBirth": "2018-05-15T18:30:00.000Z",
+      "registrationDate": "2020-08-29",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "bloodType": "O+ve",
+      "countryVisited": "India",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Anitha Perumal",
+      "supplierName": "sdsd",
+      "ssnNumber": "sdsd"
     }
   ],
   "appointmentDetails": [
-    {}
+    {},
+    {
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "appointmentType": "private",
+      "startDate": "30/08/2020",
+      "title": "Title",
+      "startTime": "12:00",
+      "endTime": "02:00",
+      "location": "location",
+      "comments": "Comments",
+      "id": "MEM895276"
+    },
+    {
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "appointmentType": "private",
+      "startDate": "11/09/2020",
+      "title": "Title",
+      "startTime": "12:00",
+      "endTime": "17:00",
+      "location": "location",
+      "comments": "Comments",
+      "id": "MEM433636"
+    }
   ]
 }

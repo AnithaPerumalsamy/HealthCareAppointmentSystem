@@ -7,6 +7,7 @@ import { AuthService } from '../service/auth.service';
 import { DataService } from '../service/DataService';
 import { UserDetails } from '../models/UserDetails';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -46,12 +47,13 @@ export class AppointmentComponent implements OnInit {
   clonedMember: boolean;
   updatedAppointmentSuccess = false;
   appointmentCreatedSuccess = false;
+  alreadyAppointmentBooked = false;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private dataService: DataService,
-    private router: Router) { }
+    private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-
+    this.inValidEndDate = false;
     this.loggedInMember = this.authService.getLoggedInUserLocal();
     if (this.loggedInMember === '') {
       console.log('In notlogged in');
@@ -95,10 +97,11 @@ export class AppointmentComponent implements OnInit {
 
   bookAppointment() {
     console.log('In Appointment');
+
     const appointmentDetails: AppointmentDetails = {
       timeZone: this.appointmentForm.get('timeZone').value,
       appointmentType: this.appointmentForm.get('appointmentType').value,
-      startDate: this.appointmentForm.get('startDate').value,
+      startDate: this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy"),
       title: this.appointmentForm.get('title').value,
       startTime: this.appointmentForm.get('startTime').value,
       endTime: this.appointmentForm.get('endTime').value,
@@ -108,18 +111,36 @@ export class AppointmentComponent implements OnInit {
     }
 
     if (this.clonedMember) {
-      this.dataService.updateAppointmentDetails(appointmentDetails, this.authService.getLoggedInUserLocal()).subscribe();
+      this.dataService.updateAppointmentDetails(appointmentDetails, this.authService.getLoggedInUserLocal()).subscribe(
+        res => {
+          console.log('Fetching Appointment Details during edit ' + JSON.stringify(res));
+        }, err => {
+          console.log('Error occured while fetching appointment details');
+        }
+      );
       this.updatedAppointmentSuccess = true;
+      this.appointmentForm.disable();
     }
     else {
-      this.dataService.createAppointment(appointmentDetails).subscribe();
+      this.dataService.createAppointment(appointmentDetails).subscribe(
+        res => {
+          console.log('New Appointment Created ' + JSON.stringify(res));
+        }, err => {
+          console.log('Error occured during appointment Creation');
+        }
+      );
       this.dataService.getUserDetails(this.authService.getLoggedInUserLocal()).subscribe(
-        (data: UserDetails) => {
-          this.userDetails = data;
+        res => {
+          console.log('User details during appointment ' + JSON.stringify(res));
+          this.userDetails = res;
           this.contactNo = this.userDetails.contactNo;
+        }, err => {
+          console.log('Error occured during fetching user details in Appointment booking module');
         }
       );
       this.appointmentCreatedSuccess = true;
+      this.appointmentForm.disable();
+
     }
   }
 
@@ -136,14 +157,16 @@ export class AppointmentComponent implements OnInit {
 
   cloneAppointmentDetails() {
     console.log('Cloning Method');
+    this.inValidEndDate = false;
     if (this.getParamQuertStringValueForEdit()) {
       this.clonedMemberId = this.getParamQuertStringValueForEdit();
       this.clonedMember = true;
       console.log('In clone Values');
       console.log('from login authservice' + this.clonedMemberId);
       this.dataService.getAppointmentDetails(this.clonedMemberId).subscribe(
-        (data: AppointmentDetails) => {
-          this.appointmentDetails = data;
+        res => {
+          console.log('Appointment details during edit ' + JSON.stringify(res));
+          this.appointmentDetails = res;
           this.appointmentForm.get('timeZone').setValue(this.appointmentDetails.timeZone);
           this.appointmentForm.get('appointmentType').setValue(this.appointmentDetails.appointmentType);
           this.appointmentForm.get('startDate').setValue(this.appointmentDetails.startDate);
@@ -152,6 +175,8 @@ export class AppointmentComponent implements OnInit {
           this.appointmentForm.get('title').setValue(this.appointmentDetails.title);
           this.appointmentForm.get('location').setValue(this.appointmentDetails.location);
           this.appointmentForm.get('comments').setValue(this.appointmentDetails.comments);
+        }, err => {
+          console.log('Edit Appointment details error');
         }
       );
     }
@@ -170,6 +195,8 @@ export class AppointmentComponent implements OnInit {
     }
   }
 
-
+  formatDate(startDate: string) {
+    console.log('Start DATE ' + startDate);
+  }
 
 }

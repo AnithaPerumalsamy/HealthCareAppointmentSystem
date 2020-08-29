@@ -15,6 +15,7 @@ export class ViewAppointmentComponent implements OnInit {
   memberId: string;
   appointmentDetails: AppointmentDetails;
   appointmentDeletedSuccess = false;
+  loginSuccess: boolean;
 
   constructor(private authService: AuthService,
     private dataService: DataService,
@@ -27,6 +28,12 @@ export class ViewAppointmentComponent implements OnInit {
     this.memberId = this.authService.getLoggedInUserLocal();
     console.log('MemberId in view ' + this.memberId);
 
+    if (this.memberId === '') {
+      console.log('In notlogged in');
+      this.loginSuccess = false;
+    } else {
+      this.loginSuccess = true;
+    }
     this.viewAppointmentDetails();
 
   }
@@ -35,8 +42,11 @@ export class ViewAppointmentComponent implements OnInit {
     this.appointmentDeletedSuccess = false;
     const url = this.router.url;
     this.dataService.getAppointmentDetails(this.memberId).subscribe(
-      (data: AppointmentDetails) => {
-        this.appointmentDetails = data;
+      res => {
+        console.log('View Appointment Details ' + JSON.stringify(res));
+        this.appointmentDetails = res;
+      }, err => {
+        console.log('Error occured during viewing appointment details');
       }
     );
   }

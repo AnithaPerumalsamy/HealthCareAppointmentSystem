@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,15 @@ export class AppComponent {
   loginSuccess = false;
   loggedInMember: string;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
   logOutUser() {
     this.authService.clearLocalStorageUser();
+    this.router.navigateByUrl('/');
   }
 
 }

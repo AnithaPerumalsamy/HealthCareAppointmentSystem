@@ -1,33 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">HealthCare Appointment System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div [ngStyle]="{'background-image': 'url(./assets/appointment.png)'}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">HealthCare Appointment System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['login']" routerLinkActive="active">Login </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['register']" routerLinkActive="active">Register</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['appointment']" routerLinkActive="active">Book Appointments</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['viewAppointment']" routerLinkActive="active">View/Edit/Delete
-                    Appointments</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['view']" routerLinkActive="active">View/Edit/Delete Personal
-                    Details</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" (click)="logOutUser()">LogOut</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['login']" routerLinkActive="active">Login </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['register']" routerLinkActive="active">Register</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['appointment']" routerLinkActive="active">Book Appointments</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['viewAppointment']" routerLinkActive="active">View/Edit/Delete
+                        Appointments</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['view']" routerLinkActive="active">View/Edit/Delete Personal
+                        Details</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" (click)="logOutUser()">LogOut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <router-outlet></router-outlet>

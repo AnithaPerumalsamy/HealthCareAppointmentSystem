@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.get('password').value);
     this.isValidUser = false;
     this.dataService.getLoginDetails().subscribe(
-      (data: LoginDetails[]) => {
-        this.loginDetails = data;
+      res => {
+        this.loginDetails = res;
         console.log('Data' + JSON.stringify(this.loginDetails));
         this.loginDetails.forEach(loginDetail => {
           if (loginDetail.userName === this.loginForm.get('userName').value) {
@@ -67,6 +67,9 @@ export class LoginComponent implements OnInit {
           console.log('InValid User');
           this.errorMessage = 'Invalid UserName or Password. If you are new user kindly click on Register to login.';
         }
+      },
+      err => {
+        console.log('Error response returned during fetching login details');
       });
 
   }

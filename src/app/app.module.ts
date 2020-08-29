@@ -26,6 +26,7 @@ import { DataService } from './service/DataService';
 import { ViewAppointmentComponent } from './view-appointment/view-appointment.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { DeleteAppointmentComponent } from './delete-appointment/delete-appointment.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -89,7 +90,7 @@ import { DeleteAppointmentComponent } from './delete-appointment/delete-appointm
         component: AppointmentComponent
       },
       {
-        path: 'viewAppointment/deleteUser/delete:Id',
+        path: 'viewAppointment/deleteUser/delete/:Id',
         component: DeleteAppointmentComponent
       }
     ]),
@@ -101,7 +102,7 @@ import { DeleteAppointmentComponent } from './delete-appointment/delete-appointm
     NgxMaterialTimepickerModule,
     TimepickerModule
   ],
-  providers: [DropDownService, AuthService, DataService],
+  providers: [DropDownService, AuthService, DataService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

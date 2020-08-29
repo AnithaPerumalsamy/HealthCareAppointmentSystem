@@ -67,16 +67,14 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Country</label>
-      <select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)" formControlName="country">
-        <option value="0">--Select--</option>
-        <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+      <select placeholder="Phantasyland" (change)="changeCountry($event.target.value)" formControlName="country">
+        <option *ngFor="let count of countryList">{{count.name}} </option>
       </select>
     </div>
     <div class="form-group col-md-4">
       <label>State</label>
-      <select formControlName="state">
-        <option value="0">--Select--</option>
-        <option *ngFor="let state of states " value={{state.id}}>{{state.name}}</option>
+      <select placeholder="Anycity" formControlName="state">
+        <option *ngFor="let state of states">{{state}} </option>
       </select>
     </div>
   </div>
@@ -192,7 +190,7 @@
       <div class="col-xs-12">
         <p class="alert alert-success">
           <strong>User Registration Success! Member id is {{ randomMemberId}}</strong> Please click here to login!.
-          <a class="nav-link" [routerLink]="['register/login']" routerLinkActive="active">Login</a>
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
         </p>
       </div>
     </div>

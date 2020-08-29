@@ -17,7 +17,7 @@
     <div class="input">
         <input type="submit" value="Login" class="btn btn-primary" [disabled]="!loginForm.valid" (click)="loginUser()">
         <div *ngIf="!isValidUser &&  errorMessage" style='color:red'>
-            {{ errorMessage}} <a class="nav-link" [routerLink]="['/header/register']" routerLinkActive="active">Register
+            {{ errorMessage}} <a class="nav-link" [routerLink]="['register']" routerLinkActive="active">Register
             </a>
         </div>
     </div>
