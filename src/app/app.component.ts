@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'AppointmentSystem';
   loginSuccess = false;
   loggedInMember: string;
+  myImage: string = "assets/appointment.png";
 
   constructor(private authService: AuthService,
     private router: Router) { }

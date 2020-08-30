@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -14,8 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppointmentComponent } from './appointment/appointment.component';
-import { HomeComponent } from './home/home.component';
-import { DropDownService } from './service/DropDownService';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -34,10 +31,8 @@ import { DatePipe } from '@angular/common';
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent,
     RegisterComponent,
     AppointmentComponent,
-    HomeComponent,
     ViewUserDetailsComponent,
     ViewAppointmentComponent,
     DeleteUserComponent,
@@ -54,20 +49,12 @@ import { DatePipe } from '@angular/common';
         component: LoginComponent
       },
       {
-        path: 'header',
-        component: HeaderComponent
-      },
-      {
         path: 'register',
         component: RegisterComponent
       },
       {
         path: 'appointment',
         component: AppointmentComponent
-      },
-      {
-        path: '',
-        component: HomeComponent
       },
       {
         path: 'view',
@@ -102,7 +89,7 @@ import { DatePipe } from '@angular/common';
     NgxMaterialTimepickerModule,
     TimepickerModule
   ],
-  providers: [DropDownService, AuthService, DataService, DatePipe],
+  providers: [AuthService, DataService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

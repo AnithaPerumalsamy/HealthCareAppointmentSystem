@@ -29,11 +29,6 @@
       "userName": "country",
       "password": "country",
       "id": "MEM222520"
-    },
-    {
-      "userName": "data",
-      "password": "data",
-      "id": "MEM433636"
     }
   ],
   "userDetails": [
@@ -115,32 +110,6 @@
       "displayName": "Tesr user",
       "supplierName": "dssd",
       "ssnNumber": "ssn785"
-    },
-    {
-      "id": "MEM433636",
-      "name": "check data",
-      "userName": "data",
-      "password": "data",
-      "gaurdianType": "father",
-      "gaurdianName": "fr",
-      "address": "34",
-      "address2": "tyh",
-      "citizenShip": "Indian",
-      "state": null,
-      "country": "Mexico",
-      "emailAddress": "anitha@gmail.com",
-      "gender": "F",
-      "maritalStatus": "single",
-      "contactNo": 9967789809,
-      "dateOfBirth": "2018-05-15T18:30:00.000Z",
-      "registrationDate": "2020-08-29",
-      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
-      "bloodType": "O+ve",
-      "countryVisited": "India",
-      "citizenStatus": "Minor Citizen",
-      "displayName": "Anitha Perumal",
-      "supplierName": "sdsd",
-      "ssnNumber": "sdsd"
     }
   ],
   "appointmentDetails": [
@@ -155,17 +124,6 @@
       "location": "location",
       "comments": "Comments",
       "id": "MEM895276"
-    },
-    {
-      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
-      "appointmentType": "private",
-      "startDate": "11/09/2020",
-      "title": "Title",
-      "startTime": "12:00",
-      "endTime": "17:00",
-      "location": "location",
-      "comments": "Comments",
-      "id": "MEM433636"
     }
   ]
 }

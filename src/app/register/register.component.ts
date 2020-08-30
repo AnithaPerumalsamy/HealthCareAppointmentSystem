@@ -3,7 +3,6 @@ import { DropDownType } from '../app.const';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserDetails } from '../models/UserDetails';
 import { HttpClient } from '@angular/common/http';
-import { DropDownService } from '../service/DropDownService';
 import { AuthService } from '../service/auth.service';
 import { LoginDetails } from '../models/LoginDetails';
 import { Router } from '@angular/router';
@@ -77,7 +76,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropDownService: DropDownService,
     private authService: AuthService,
     private router: Router, private dataService: DataService,
     private datePipe: DatePipe) { }
@@ -240,7 +238,7 @@ export class RegisterComponent implements OnInit {
         },
       );
     }
-
+    this.registerForm.disable();
   }
 
   cloneValues() {

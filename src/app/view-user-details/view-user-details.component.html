@@ -15,116 +15,60 @@
     </nav>
     <div *ngIf="userDetails; else noUserDetails">
         <h3> User Details </h3>
-        <div *ngIf=" userDetails?.name">
-            <tr>
-                <td style="color: green;">Name: {{userDetails?.name}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.userName">
-            <tr>
-                <td style="color: green;">UserName: {{userDetails?.userName}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.gaurdianType">
-            <tr>
-                <td style="color: green;">Gaurdian Type: {{userDetails?.gaurdianType}}</td>
-            </tr>
-        </div>
-        <div *ngIf=" userDetails?.gaurdianName">
-            <tr>
-                <td style="color: green;">Gaurdian Name: {{userDetails?.gaurdianName}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.address">
-            <tr>
-                <td style="color: green;">Address: {{userDetails?.address}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.address2">
-            <tr>
-                <td style="color: green;">Address2: {{userDetails?.address2}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.citizenShip">
-            <tr>
-                <td style="color: green;">CitizenShip: {{userDetails?.citizenShip}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.state">
-            <tr>
-                <td style="color: green;">State: {{userDetails?.state}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.country">
-            <tr>
-                <td style="color: green;">Country: {{userDetails?.country}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.emailAddress">
-            <tr>
-                <td style="color: green;">Email Address: {{userDetails?.emailAddress}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.gender">
-            <tr>
-                <td style="color: green;">Gender: {{userDetails?.gender}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.maritalStatus">
-            <tr>
-                <td style="color: green;">Marital Status: {{userDetails?.maritalStatus}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.contactNo">
-            <tr>
-                <td style="color: green;">Contact No: {{userDetails?.contactNo}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.dateOfBirth">
-            <tr>
-                <td style="color: green;">Date Of Birth: {{userDetails?.dateOfBirth}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.registrationDate">
-            <tr>
-                <td style="color: green;">Registration Date: {{userDetails?.registrationDate}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.timeZone">
-            <tr>
-                <td style="color: green;">Time Zone:{{userDetails?.timeZone}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.bloodType">
-            <tr>
-                <td style="color: green;">Blood Type:{{userDetails?.bloodType}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.countryVisited">
-            <tr>
-                <td style="color: green;">Country Visited:{{userDetails?.countryVisited}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.citizenStatus">
-            <tr>
-                <td style="color: green;">Citizen Status:{{userDetails?.citizenStatus}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.displayName">
-            <tr>
-                <td style="color: green;">Display Name:{{userDetails?.displayName}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.supplierName">
-            <tr>
-                <td style="color: green;">Supplier Name:{{userDetails?.supplierName}}</td>
-            </tr>
-        </div>
-        <div *ngIf="userDetails?.ssnNumber">
-            <tr>
-                <td style="color: green;">SSN Number:{{userDetails?.ssnNumber}}</td>
-            </tr>
-        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="row">Name</th>
+                    <th scope="row">User Name</th>
+                    <th scope="row">Gaurdian Type </th>
+                    <th scope="row">Gaurdian Name</th>
+                    <th scope="row">Address</th>
+                    <th scope="row">Address2</th>
+                    <th scope="row">CitizenShip</th>
+                    <th scope="row"> State </th>
+                    <th scope="row"> Country </th>
+                    <th scope="row"> Email Address </th>
+                    <th scope="row"> Gender </th>
+                    <th scope="row"> Marital Status </th>
+                    <th scope="row"> Contact No </th>
+                    <th scope="row"> Date Of Birth </th>
+                    <th scope="row"> Registration Date </th>
+                    <th scope="row"> Time Zone </th>
+                    <th scope="row"> Blood Type </th>
+                    <th scope="row"> Country Visited </th>
+                    <th scope="row"> Citizen Status </th>
+                    <th scope="row">Display Name </th>
+                    <th scope="row"> Supplier Name</th>
+                    <th scope="row"> SSN Number </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ userDetails?.name }}</td>
+                    <td>{{ userDetails?.userName }}</td>
+                    <td>{{ userDetails?.gaurdianType }}</td>
+                    <td>{{ userDetails?.gaurdianName }}</td>
+                    <td>{{ userDetails?.address}}</td>
+                    <td>{{ userDetails?.address2 }}</td>
+                    <td>{{userDetails?.citizenShip }}</td>
+                    <td>{{ userDetails?.state }}</td>
+                    <td>{{ userDetails?.country }}</td>
+                    <td>{{ userDetails?.emailAddress }}</td>
+                    <td>{{ userDetails?.gender }}</td>
+                    <td>{{ userDetails?.maritalStatus }}</td>
+                    <td>{{ userDetails?.contactNo }}</td>
+                    <td>{{ userDetails?.dateOfBirth}}</td>
+                    <td>{{userDetails?.registrationDate }}</td>
+                    <td>{{ userDetails?.timeZone }}</td>
+                    <td>{{ userDetails?.bloodType }}</td>
+                    <td>{{ userDetails?.countryVisited || 'NA' }}</td>
+                    <td>{{ userDetails?.citizenStatus }}</td>
+                    <td>{{ userDetails?.displayName || 'NA'}}</td>
+                    <td>{{ userDetails?.supplierName || 'NA' }}</td>
+                    <td>{{ userDetails?.ssnNumber || 'NA' }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <ng-template #noUserDetails>
         Personal details not available for the user.

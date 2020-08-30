@@ -1,5 +1,6 @@
 <form [formGroup]="registerForm" (submit)="registerUser()">
-  <h1 style="color: green; font-weight: bold; font-style: normal; font-size: x-large;"> Customer Registration Form </h1>
+  <h1 style="color: green; font-weight: bold; font-style: normal; font-size: x-large;"> Customer Registration Form
+  </h1>
   <div class="form-group col-md-4">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" formControlName="name">
@@ -107,7 +108,8 @@
       </option>
     </select>
     <div style='color:red'>
-      <error *ngIf="registerFormCtrl.maritalStatus.errors?.required">Marital Status is a Mandatory field. Kindly select
+      <error *ngIf="registerFormCtrl.maritalStatus.errors?.required">Marital Status is a Mandatory field. Kindly
+        select
         one from drop down</error>
     </div>
   </div>
@@ -153,7 +155,8 @@
       </option>
     </select>
     <div style='color:red'>
-      <error *ngIf="registerFormCtrl.bloodType.errors?.required">Blood Type is a Mandatory field. Kindly select one from
+      <error *ngIf="registerFormCtrl.bloodType.errors?.required">Blood Type is a Mandatory field. Kindly select one
+        from
         drop down</error>
     </div>
   </div>

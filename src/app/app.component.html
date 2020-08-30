@@ -1,4 +1,4 @@
-<div [ngStyle]="{'background-image': 'url(./assets/appointment.png)'}">
+<div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">HealthCare Appointment System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -15,7 +15,8 @@
                     <a class="nav-link" [routerLink]="['register']" routerLinkActive="active">Register</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" [routerLink]="['appointment']" routerLinkActive="active">Book Appointments</a>
+                    <a class="nav-link" [routerLink]="['appointment']" routerLinkActive="active">Book
+                        Appointments</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" [routerLink]="['viewAppointment']" routerLinkActive="active">View/Edit/Delete
@@ -32,4 +33,5 @@
         </div>
     </nav>
 </div>
+
 <router-outlet></router-outlet>

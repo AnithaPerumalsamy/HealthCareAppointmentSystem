@@ -13,50 +13,34 @@
             </ul>
         </div>
     </nav>
-    <div>
+    <div *ngIf="appointmentDetails; else noDetails">
         <h3> Appointment Details </h3>
-        <div *ngIf="appointmentDetails; else noDetails">
-            <div *ngIf="appointmentDetails?.timeZone">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td style="color: green;">Time Zone: {{appointmentDetails?.timeZone}}</td>
+                    <th scope="row">Time Zone</th>
+                    <th scope="row">Appointment Type</th>
+                    <th scope="row">Start Date </th>
+                    <th scope="row">Title</th>
+                    <th scope="row">Start Time</th>
+                    <th scope="row">End Time</th>
+                    <th scope="row"> Location </th>
+                    <th scope="row"> Comments </th>
                 </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.appointmentType">
+            </thead>
+            <tbody>
                 <tr>
-                    <td style="color: green;">Appointment Type: {{appointmentDetails?.appointmentType}}</td>
+                    <td>{{ appointmentDetails?.timeZone }}</td>
+                    <td>{{ appointmentDetails?.appointmentType }}</td>
+                    <td>{{ appointmentDetails?.startDate }}</td>
+                    <td>{{ appointmentDetails?.title }}</td>
+                    <td>{{ appointmentDetails?.startTime }}</td>
+                    <td>{{ appointmentDetails?.endTime }}</td>
+                    <td>{{appointmentDetails?.location }}</td>
+                    <td>{{ appointmentDetails?.comments }}</td>
                 </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.startDate">
-                <tr>
-                    <td style="color: green;">Start Date: {{appointmentDetails?.startDate}}</td>
-                </tr>
-            </div>
-            <div *ngIf=" appointmentDetails?.title">
-                <tr>
-                    <td style="color: green;">Title: {{appointmentDetails?.title}}</td>
-                </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.startTime">
-                <tr>
-                    <td style="color: green;">Start Time: {{appointmentDetails?.startTime}}</td>
-                </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.endTime">
-                <tr>
-                    <td style="color: green;">End Time: {{appointmentDetails?.endTime}}</td>
-                </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.location">
-                <tr>
-                    <td style="color: green;">Location: {{appointmentDetails?.location}}</td>
-                </tr>
-            </div>
-            <div *ngIf="appointmentDetails?.comments">
-                <tr>
-                    <td style="color: green;">Comments: {{appointmentDetails?.comments}}</td>
-                </tr>
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
     <ng-template #noDetails>
         No Booking Appointments made for the user
