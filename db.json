@@ -142,12 +142,12 @@
       "gender": "M",
       "maritalStatus": "single",
       "contactNo": 9965518522,
-      "dateOfBirth": "15/08/1991",
+      "dateOfBirth": "14/05/2014",
       "registrationDate": "2020-08-31",
       "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
       "bloodType": "A1-ve",
       "countryVisited": "None",
-      "citizenStatus": "Mid Citizen",
+      "citizenStatus": "Minor Citizen",
       "displayName": "Ram Kumar",
       "supplierName": "supplier",
       "ssnNumber": "ssn1234"
@@ -277,6 +277,18 @@
       "comments": "review",
       "memberId": "MEM237275",
       "id": "APP954661"
+    },
+    {
+      "timeZone": "(GMT -8:00) Pacific Time (US &amp; Canada)",
+      "appointmentType": "Public",
+      "startDate": "30/09/2020",
+      "title": "Title",
+      "startTime": "12:00",
+      "endTime": "20:00",
+      "location": "loc",
+      "comments": "comments",
+      "memberId": "MEM422895",
+      "id": "APP629286"
     }
   ]
 }

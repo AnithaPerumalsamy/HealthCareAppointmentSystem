@@ -175,13 +175,16 @@ export class RegisterComponent implements OnInit {
 
 
   registerUser() {
+    console.log('In register user ' + this.registerForm.get('date').value);
     this.registrationSuccess = false;
     if (!this.clonedMember) {
       this.randomMemberId = 'MEM' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomMemberId);
       this.dateOfBirthFormatted = this.datePipe.transform(this.registerForm.get('date').value, "dd/MM/yyyy");
+      console.log('In not cloned ' + this.dateOfBirthFormatted);
     } else {
       this.dateOfBirthFormatted = this.registerForm.get('date').value;
+      console.log('In cloned ' + this.dateOfBirthFormatted);
     }
     const userDetails: UserDetails = {
       id: this.randomMemberId,
@@ -250,6 +253,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cloneValues() {
+    console.log('In cloned Va;ues');
     if (this.getParamQuertStringValueForEdit()) {
       this.clonedMemberId = this.getParamQuertStringValueForEdit();
       this.clonedMember = true;

@@ -100,17 +100,13 @@ export class AppointmentComponent implements OnInit {
 
   bookAppointment() {
     if (!this.clonedAppointment) {
-      console.log('In not cloned');
       this.randomAppointmentId = 'APP' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomAppointmentId);
-      this.formattedStartDate = this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy");
-    } else {
-      this.formattedStartDate = this.appointmentForm.get('startDate').value;
     }
     const appointmentDetails: AppointmentDetails = {
       timeZone: this.appointmentForm.get('timeZone').value,
       appointmentType: this.appointmentForm.get('appointmentType').value,
-      startDate: this.formattedStartDate,
+      startDate: this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy"),
       title: this.appointmentForm.get('title').value,
       startTime: this.appointmentForm.get('startTime').value,
       endTime: this.appointmentForm.get('endTime').value,
@@ -176,6 +172,7 @@ export class AppointmentComponent implements OnInit {
           this.appointmentForm.get('timeZone').setValue(this.appointmentDetails.timeZone);
           this.appointmentForm.get('appointmentType').setValue(this.appointmentDetails.appointmentType);
           this.appointmentForm.get('startDate').setValue(this.appointmentDetails.startDate);
+          console.log('During clone  ' + this.appointmentForm.get('startDate').value);
           this.appointmentForm.get('startTime').setValue(this.appointmentDetails.startTime);
           this.appointmentForm.get('endTime').setValue(this.appointmentDetails.endTime);
           this.appointmentForm.get('title').setValue(this.appointmentDetails.title);
