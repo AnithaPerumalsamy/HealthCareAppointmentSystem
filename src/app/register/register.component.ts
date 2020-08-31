@@ -22,9 +22,10 @@ export function cloneValues() {
 export class RegisterComponent implements OnInit {
 
   GaurdianTypes: DropDownType[] = [
-    { id: 'father', name: 'Father' },
-    { id: 'husband', name: 'Husband' },
-    { id: 'other', name: 'Other' }
+    { id: 'Father', name: 'Father' },
+    { id: 'Husband', name: 'Husband' },
+    { id: 'Mother', name: 'Mother' },
+    { id: 'Others', name: 'Other' }
   ];
 
   GenderTypes: DropDownType[] = [
@@ -39,12 +40,17 @@ export class RegisterComponent implements OnInit {
 
   TimeZones: DropDownType[] = [
     { id: '(GMT +5:30) Bombay, Calcutta, Madras, New Delhi', name: '(GMT +5:30) Bombay, Calcutta, Madras, New Delhi' },
-    { id: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City', name: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City' }
+    { id: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City', name: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City' },
+    { id: '(GMT -8:00) Pacific Time (US &amp; Canada)', name: '(GMT -8:00) Pacific Time (US &amp; Canada)' }
   ];
 
   BloodTypes: DropDownType[] = [
     { id: 'O+ve', name: 'O+ve' },
-    { id: 'O-ve', name: 'O-ve' }
+    { id: 'O-ve', name: 'O-ve' },
+    { id: 'A-ve', name: 'A-ve' },
+    { id: 'A1-ve', name: 'A1-ve' },
+    { id: 'B+ve', name: 'B+ve' },
+    { id: 'B-ve', name: 'B-ve' }
   ];
 
   countryList: Array<any> = [
@@ -53,7 +59,7 @@ export class RegisterComponent implements OnInit {
     { name: 'USA', states: ['Downers Grove'] },
     { name: 'Mexico', states: ['Puebla'] },
     { name: 'China', states: ['Beijing'] },
-    { name: 'India', states: ['Andra Pradesh', 'TamilNadu'] },
+    { name: 'India', states: ['Andra Pradesh', 'TamilNadu', 'Arunachal Pradesh', 'Kerela'] },
   ];
   states: Array<any>;
 
@@ -73,6 +79,7 @@ export class RegisterComponent implements OnInit {
   disableCitizenField = false;
   userDeletedSuccess = false;
   appointmentDetails: AppointmentDetails;
+  dateOfBirthFormatted: string;
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -171,6 +178,9 @@ export class RegisterComponent implements OnInit {
     if (!this.clonedMember) {
       this.randomMemberId = 'MEM' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomMemberId);
+      this.dateOfBirthFormatted = this.datePipe.transform(this.registerForm.get('date').value, "dd/MM/yyyy");
+    } else {
+      this.dateOfBirthFormatted = this.registerForm.get('date').value;
     }
     console.log('Empty ' + this.randomMemberId);
     console.log('State ' + this.registerForm.get('state').value);
@@ -190,7 +200,7 @@ export class RegisterComponent implements OnInit {
       gender: this.registerForm.get('gender').value,
       maritalStatus: this.registerForm.get('maritalStatus').value,
       contactNo: this.registerForm.get('contactNo').value,
-      dateOfBirth: this.datePipe.transform(this.registerForm.get('date').value, "dd/MM/yyyy"),
+      dateOfBirth: this.dateOfBirthFormatted,
       registrationDate: this.registerForm.get('registrationDate').value,
       timeZone: this.registerForm.get('timeZone').value,
       bloodType: this.registerForm.get('bloodType').value,
@@ -221,7 +231,7 @@ export class RegisterComponent implements OnInit {
           console.log('Create New User ' + JSON.stringify(res));
         },
         err => {
-          console.log('Create new user faile');
+          console.log('Create new user failed');
         }
       );
       const loginDetailsNew: LoginDetails = {

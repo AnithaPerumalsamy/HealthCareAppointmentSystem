@@ -20,12 +20,13 @@ export class AppointmentComponent implements OnInit {
 
   TimeZones: DropDownType[] = [
     { id: '(GMT +5:30) Bombay, Calcutta, Madras, New Delhi', name: '(GMT +5:30) Bombay, Calcutta, Madras, New Delhi' },
-    { id: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City', name: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City' }
+    { id: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City', name: '(GMT -6:00) Central Time (US &amp; Canada), Mexico City' },
+    { id: '(GMT -8:00) Pacific Time (US &amp; Canada)', name: '(GMT -8:00) Pacific Time (US &amp; Canada)' }
   ];
 
   AppointmentTypes: DropDownType[] = [
-    { id: 'private', name: 'Private' },
-    { id: 'public', name: 'Public' }
+    { id: 'Private', name: 'Private' },
+    { id: 'Public', name: 'Public' }
   ];
 
   minDate: Date;
