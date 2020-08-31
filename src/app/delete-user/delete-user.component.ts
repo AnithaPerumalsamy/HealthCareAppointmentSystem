@@ -28,7 +28,6 @@ export class DeleteUserComponent implements OnInit {
 
   deleteUserDetails() {
     this.userDetails == null;
-    console.log('In delete');
     if (this.getParamQueryStringValue()) {
       console.log('delete member id ' + this.getParamQueryStringValue());
       this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe();
@@ -41,7 +40,6 @@ export class DeleteUserComponent implements OnInit {
   getParamQueryStringValue() {
     const url = this.router.url;
     if (url.includes('delete')) {
-      console.log('In delete parama');
       const httpParams = url.split('/');
       console.log(httpParams);
       if (httpParams[4]) {

@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
     { name: 'India', states: ['Andra Pradesh', 'TamilNadu', 'Arunachal Pradesh', 'Kerela'] },
   ];
   states: Array<any>;
-
+  states1: Array<any>;
   registerForm: FormGroup;
   age: number;
   citizenStatus: string;
@@ -80,6 +80,8 @@ export class RegisterComponent implements OnInit {
   userDeletedSuccess = false;
   appointmentDetails: AppointmentDetails;
   dateOfBirthFormatted: string;
+  selectedState: string;
+  onEdit: boolean;
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
@@ -129,11 +131,11 @@ export class RegisterComponent implements OnInit {
       registrationDate: [''],
       timeZone: ['', Validators.required],
       bloodType: ['', Validators.required],
-      countryVisited: [],
+      countryVisited: [''],
       citizenStatus: ['', Validators.required],
-      displayName: [],
+      displayName: [''],
       supplierName: ['', Validators.required],
-      ssnNumber: []
+      ssnNumber: ['']
     });
     this.getDate();
     this.cloneValues();
@@ -174,7 +176,6 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     this.registrationSuccess = false;
-    console.log('in register user');
     if (!this.clonedMember) {
       this.randomMemberId = 'MEM' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomMemberId);
@@ -182,8 +183,6 @@ export class RegisterComponent implements OnInit {
     } else {
       this.dateOfBirthFormatted = this.registerForm.get('date').value;
     }
-    console.log('Empty ' + this.randomMemberId);
-    console.log('State ' + this.registerForm.get('state').value);
     const userDetails: UserDetails = {
       id: this.randomMemberId,
       name: this.registerForm.get('name').value,
@@ -213,7 +212,6 @@ export class RegisterComponent implements OnInit {
 
 
     if (this.randomMemberId === '') {
-      console.log('In update contions ' + this.authService.getLoggedInUserLocal());
       this.registrationCloneSuccess = true;
       this.dataService.updateUser(userDetails, this.authService.getLoggedInUserLocal()).subscribe(
         res => {
@@ -252,16 +250,16 @@ export class RegisterComponent implements OnInit {
   }
 
   cloneValues() {
-    console.log('Cloning Method');
     if (this.getParamQuertStringValueForEdit()) {
       this.clonedMemberId = this.getParamQuertStringValueForEdit();
       this.clonedMember = true;
-      console.log('In clone Values');
-      console.log('from login authservice' + this.clonedMemberId);
+      this.onEdit = true;
+      this.registerForm.controls['userName'].disable();
+      this.registerForm.controls['inputPassword'].disable();
       this.dataService.getUserDetails(this.clonedMemberId).subscribe(
         res => {
-          console.log('Fetch user Details during Edit ' + res);
           this.userDetailsModel = res;
+          this.changeCountryOnEdit(this.userDetailsModel.country, this.userDetailsModel.state)
           this.registerForm.get('name').setValue(this.userDetailsModel.name);
           this.registerForm.get('userName').setValue(this.userDetailsModel.userName);
           this.registerForm.get('inputPassword').setValue(this.userDetailsModel.password);
@@ -271,7 +269,7 @@ export class RegisterComponent implements OnInit {
           this.registerForm.get('inputAddress2').setValue(this.userDetailsModel.address2);
           this.registerForm.get('citizenShip').setValue(this.userDetailsModel.citizenShip);
           this.registerForm.get('country').setValue(this.userDetailsModel.country);
-          this.registerForm.get('state').setValue(this.userDetailsModel.state);
+          this.registerForm.get('state').setValue(this.selectedState);
           this.registerForm.get('emailAddress').setValue(this.userDetailsModel.emailAddress);
           this.registerForm.get('gender').setValue(this.userDetailsModel.gender);
           this.registerForm.get('maritalStatus').setValue(this.userDetailsModel.maritalStatus);
@@ -305,8 +303,21 @@ export class RegisterComponent implements OnInit {
 
 
   changeCountry(count) {
+    this.onEdit = false;
     console.log('In change country ' + count);
-    this.states = this.countryList.find(con => con.name == count).states;
+    this.states = this.countryList.find(con =>
+      con.name == count).states;
+  }
+
+  changeCountryOnEdit(country: string, state: string) {
+    console.log('In change country on Edit ' + country);
+    this.states1 = this.countryList.find(con =>
+      con.name == country).states;
+    this.states1.forEach(state1 => {
+      if (state1 == state) {
+        this.selectedState = state1;
+      }
+    });
   }
 
 

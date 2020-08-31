@@ -28,7 +28,6 @@ export class DeleteAppointmentComponent implements OnInit {
 
   deleteAppointmentDetails() {
     this.appointmentDetails == null;
-    console.log('In delete');
     if (this.getParamQueryStringValue()) {
       console.log('delete member id ' + this.getParamQueryStringValue());
       this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
@@ -39,7 +38,6 @@ export class DeleteAppointmentComponent implements OnInit {
   getParamQueryStringValue() {
     const url = this.router.url;
     if (url.includes('delete')) {
-      console.log('In delete parama');
       const httpParams = url.split('/');
       console.log(httpParams);
       if (httpParams[4]) {

@@ -34,6 +34,16 @@
       "userName": "Ram",
       "password": "password",
       "id": "MEM422895"
+    },
+    {
+      "userName": "Kumar",
+      "password": "kumar",
+      "id": "MEM998370"
+    },
+    {
+      "userName": "krish",
+      "password": "venkat",
+      "id": "MEM237275"
     }
   ],
   "userDetails": [
@@ -141,6 +151,58 @@
       "displayName": "Ram Kumar",
       "supplierName": "supplier",
       "ssnNumber": "ssn1234"
+    },
+    {
+      "id": "MEM998370",
+      "name": "Kumar Ram",
+      "userName": "Kumar",
+      "password": "kumar",
+      "gaurdianType": "Father",
+      "gaurdianName": "Ram",
+      "address": "23 strt1",
+      "address2": "strt2",
+      "citizenShip": "Indian",
+      "state": "TamilNadu",
+      "country": "India",
+      "emailAddress": "kumar@gmail.com",
+      "gender": "M",
+      "maritalStatus": "single",
+      "contactNo": 9965518801,
+      "dateOfBirth": "22/08/2018",
+      "registrationDate": "2020-08-31",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "bloodType": "A1-ve",
+      "countryVisited": "India",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Kumar Ram",
+      "supplierName": "ssn",
+      "ssnNumber": "ssn"
+    },
+    {
+      "id": "MEM237275",
+      "name": "krish",
+      "userName": "krish",
+      "password": "venkat",
+      "gaurdianType": "Father",
+      "gaurdianName": "Venkat",
+      "address": "45 strt2",
+      "address2": "strt4",
+      "citizenShip": "Indian",
+      "state": "TamilNadu",
+      "country": "India",
+      "emailAddress": "krish@gmail.com",
+      "gender": "M",
+      "maritalStatus": "single",
+      "contactNo": 9967890844,
+      "dateOfBirth": "15/05/2003",
+      "registrationDate": "2020-08-31",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "bloodType": "O+ve",
+      "countryVisited": "India",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Krish Venkat",
+      "supplierName": "supp",
+      "ssnNumber": "ssn"
     }
   ],
   "appointmentDetails": [
@@ -157,15 +219,64 @@
       "id": "MEM895276"
     },
     {
-      "timeZone": "(GMT -8:00) Pacific Time (US &amp; Canada)",
-      "appointmentType": "Public",
-      "startDate": "23/10/2020",
-      "title": "Skin disease",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "appointmentType": "Private",
+      "startDate": "31/08/2020",
+      "title": "Title",
       "startTime": "12:00",
-      "endTime": "20:00",
-      "location": "juk",
+      "endTime": "18:00",
+      "location": "cbe",
+      "comments": "checkup",
+      "memberId": "MEM998370",
+      "id": "APP803024"
+    },
+    {
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "appointmentType": "Private",
+      "startDate": "31/08/2020",
+      "title": "Title",
+      "startTime": "02:00",
+      "endTime": "05:00",
+      "location": "dsd",
+      "comments": "sdsd",
+      "memberId": "MEM998370",
+      "id": "APP398394"
+    },
+    {
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "appointmentType": "Private",
+      "startDate": "18/09/2020",
+      "title": "skin",
+      "startTime": "03:00",
+      "endTime": "06:00",
+      "location": "loc",
       "comments": "general checkup",
-      "id": "MEM422895"
+      "memberId": "MEM422895",
+      "id": "APP630812"
+    },
+    {
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "appointmentType": "Private",
+      "startDate": "24/09/2020",
+      "title": "General doctor",
+      "startTime": "12:00",
+      "endTime": "19:00",
+      "location": "KG",
+      "comments": "checkup",
+      "memberId": "MEM237275",
+      "id": "APP388802"
+    },
+    {
+      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "appointmentType": "Private",
+      "startDate": "18/09/2020",
+      "title": "Skin doctor",
+      "startTime": "02:00",
+      "endTime": "05:00",
+      "location": "KMCH",
+      "comments": "review",
+      "memberId": "MEM237275",
+      "id": "APP954661"
     }
   ]
 }

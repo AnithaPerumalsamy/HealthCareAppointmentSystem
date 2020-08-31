@@ -1,45 +1,31 @@
 <div *ngIf="loginSuccess ; else notLoggedIn">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <a class="nav-link" [routerLink]="['/viewAppointment/appointment/'+ 'edit' +'/' + memberId]"
-                    routerLinkActive="active" [class.disabled]="!loginSuccess || !appointmentDetails">Edit Appointment
-                    Details
-                </a>
-                <a class="nav-link" [routerLink]="['/viewAppointment/deleteUser/'  + 'delete' + '/'+ memberId]"
-                    routerLinkActive="active" [class.disabled]="!loginSuccess || !appointmentDetails">Delete Appointment
-                    Details
-                </a>
-            </ul>
-        </div>
-    </nav>
-    <div *ngIf="appointmentDetails; else noDetails">
+    <div *ngIf="finalAppointmentDetails; else noDetails">
         <h3> Appointment Details </h3>
         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="row">Time Zone</th>
-                    <th scope="row">Appointment Type</th>
-                    <th scope="row">Start Date </th>
-                    <th scope="row">Title</th>
-                    <th scope="row">Start Time</th>
-                    <th scope="row">End Time</th>
-                    <th scope="row"> Location </th>
-                    <th scope="row"> Comments </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ appointmentDetails?.timeZone }}</td>
-                    <td>{{ appointmentDetails?.appointmentType }}</td>
-                    <td>{{ appointmentDetails?.startDate }}</td>
-                    <td>{{ appointmentDetails?.title }}</td>
-                    <td>{{ appointmentDetails?.startTime }}</td>
-                    <td>{{ appointmentDetails?.endTime }}</td>
-                    <td>{{appointmentDetails?.location }}</td>
-                    <td>{{ appointmentDetails?.comments }}</td>
-                </tr>
-            </tbody>
+            <tr>
+                <th scope="row">Time Zone</th>
+                <th scope="row">Appointment Type</th>
+                <th scope="row">Start Date </th>
+                <th scope="row">Title</th>
+                <th scope="row">Start Time</th>
+                <th scope="row">End Time</th>
+                <th scope="row"> Location </th>
+                <th scope="row"> Comments </th>
+                <th scope="row">Actions</th>
+            </tr>
+            <tr *ngFor="let finalAppointment of finalAppointmentDetails">
+                <td>{{ finalAppointment?.timeZone }}</td>
+                <td>{{ finalAppointment?.appointmentType }}</td>
+                <td>{{ finalAppointment?.startDate }}</td>
+                <td>{{ finalAppointment?.title }}</td>
+                <td>{{ finalAppointment?.startTime }}</td>
+                <td>{{ finalAppointment?.endTime }}</td>
+                <td>{{finalAppointment?.location }}</td>
+                <td>{{ finalAppointment?.comments }}</td>
+                <input type="edit" value="Edit" class="btn btn-primary" (click)="onEditClicked(finalAppointment.id)">
+                <input type="delete" value="Delete" class="btn btn-primary"
+                    (click)="onDeleteClicked(finalAppointment.id)">
+            </tr>
         </table>
     </div>
     <ng-template #noDetails>

@@ -1,5 +1,6 @@
 export class AppointmentDetails {
-    id: string;
+    id?: string;
+    memberId?: string;
     timeZone: string;
     appointmentType: string;
     startDate: string;
@@ -7,5 +8,5 @@ export class AppointmentDetails {
     startTime: string;
     endTime: string;
     location: string;
-    comments?: string;
+    comments: string;
 }

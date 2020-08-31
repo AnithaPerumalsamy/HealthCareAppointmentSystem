@@ -68,14 +68,20 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Country</label>
-      <select placeholder="Phantasyland" (change)="changeCountry($event.target.value)" formControlName="country">
+      <select placeholder="Phantasyland" (click)="changeCountry($event.target.value)" formControlName="country">
         <option *ngFor="let count of countryList">{{count.name}} </option>
       </select>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-4" *ngIf="!onEdit">
       <label>State</label>
       <select placeholder="Anycity" formControlName="state">
         <option *ngFor="let state of states">{{state}} </option>
+      </select>
+    </div>
+    <div class="form-group col-md-4" *ngIf="onEdit">
+      <label>State</label>
+      <select placeholder="Anycity" formControlName="state">
+        <option value={{selectedState}}> {{selectedState}}</option>
       </select>
     </div>
   </div>

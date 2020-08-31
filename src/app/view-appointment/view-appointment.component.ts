@@ -13,9 +13,10 @@ export class ViewAppointmentComponent implements OnInit {
 
 
   memberId: string;
-  appointmentDetails: AppointmentDetails;
+  appointmentDetails: AppointmentDetails[];
   appointmentDeletedSuccess = false;
   loginSuccess: boolean;
+  finalAppointmentDetails: AppointmentDetails[] = [];
 
   constructor(private authService: AuthService,
     private dataService: DataService,
@@ -41,16 +42,28 @@ export class ViewAppointmentComponent implements OnInit {
   viewAppointmentDetails() {
     this.appointmentDeletedSuccess = false;
     const url = this.router.url;
-    this.dataService.getAppointmentDetails(this.memberId).subscribe(
+    this.dataService.getAllAppointments().subscribe(
       res => {
         console.log('View Appointment Details ' + JSON.stringify(res));
         this.appointmentDetails = res;
+        this.appointmentDetails.forEach(appointmentDetail => {
+          if (appointmentDetail.memberId === this.memberId) {
+            this.finalAppointmentDetails.push(appointmentDetail);
+          }
+          console.log('Final Appointment ' + JSON.stringify(this.finalAppointmentDetails));
+        })
       }, err => {
         console.log('Error occured during viewing appointment details');
       }
     );
   }
 
+  onEditClicked(id: string) {
+    this.router.navigateByUrl('/viewAppointment/appointment/edit/' + id);
+  }
 
+  onDeleteClicked(id: string) {
+    this.router.navigateByUrl('/viewAppointment/deleteUser/delete/' + id);
+  }
 
 }

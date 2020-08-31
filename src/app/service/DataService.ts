@@ -18,7 +18,6 @@ export class DataService {
     public headersAuth = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: 'application/json'
-        //Authorization: 'Basic'
     })
 
     public httpOptionsAuth = {
@@ -99,5 +98,8 @@ export class DataService {
             .pipe(catchError(this.handleError<any>()));
     }
 
+    getAllAppointments() {
+        return this.http.get(api_url_appointmentDetails).pipe(catchError(this.handleError<any>()));
+    }
 
 }

@@ -60,11 +60,9 @@ export class LoginComponent implements OnInit {
           }
         });
         if (this.isValidUser) {
-          console.log('Valid User');
           console.log(this.authService.getLoggedInUserLocal());
           this.router.navigateByUrl('/');
         } else {
-          console.log('InValid User');
           this.errorMessage = 'Invalid UserName or Password. If you are new user kindly click on Register to login.';
         }
       },

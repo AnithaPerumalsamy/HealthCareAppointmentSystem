@@ -7,13 +7,11 @@ const keyLoggedInMemberId = 'loggedInMemberId';
 export class AuthService {
 
     setLoggedInUserLocal(loginDetail: LoginDetails) {
-        console.log('In setlocal storage');
         localStorage.setItem(keyLoggedInUserName, loginDetail.userName);
         localStorage.setItem(keyLoggedInMemberId, loginDetail.id);
     }
 
     getLoggedInUserLocal() {
-        console.log('In getlocal storage');
         if (localStorage.hasOwnProperty(keyLoggedInMemberId)) {
             console.log('storage memberId ' + localStorage.getItem(keyLoggedInMemberId));
             return localStorage.getItem(keyLoggedInMemberId);

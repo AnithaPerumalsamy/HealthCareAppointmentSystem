@@ -11,7 +11,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" [routerLink]="['login']" routerLinkActive="active">Login </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item active" *ngIf="!loginSuccess">
                     <a class="nav-link" [routerLink]="['register']" routerLinkActive="active">Register</a>
                 </li>
                 <li class="nav-item active">

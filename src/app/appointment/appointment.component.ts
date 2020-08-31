@@ -49,6 +49,9 @@ export class AppointmentComponent implements OnInit {
   updatedAppointmentSuccess = false;
   appointmentCreatedSuccess = false;
   alreadyAppointmentBooked = false;
+  clonedAppointment = false;
+  randomAppointmentId: string = '';
+  formattedStartDate: string;
 
   constructor(private _formBuilder: FormBuilder, private authService: AuthService, private dataService: DataService,
     private router: Router, private datePipe: DatePipe) { }
@@ -57,7 +60,6 @@ export class AppointmentComponent implements OnInit {
     this.inValidEndDate = false;
     this.loggedInMember = this.authService.getLoggedInUserLocal();
     if (this.loggedInMember === '') {
-      console.log('In notlogged in');
       this.loginSuccess = false;
     } else {
       this.loginSuccess = true;
@@ -97,22 +99,29 @@ export class AppointmentComponent implements OnInit {
   }
 
   bookAppointment() {
-    console.log('In Appointment');
-
+    if (!this.clonedAppointment) {
+      console.log('In not cloned');
+      this.randomAppointmentId = 'APP' + Math.floor(100000 + Math.random() * 900000);
+      console.log(this.randomAppointmentId);
+      this.formattedStartDate = this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy");
+    } else {
+      this.formattedStartDate = this.appointmentForm.get('startDate').value;
+    }
     const appointmentDetails: AppointmentDetails = {
       timeZone: this.appointmentForm.get('timeZone').value,
       appointmentType: this.appointmentForm.get('appointmentType').value,
-      startDate: this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy"),
+      startDate: this.formattedStartDate,
       title: this.appointmentForm.get('title').value,
       startTime: this.appointmentForm.get('startTime').value,
       endTime: this.appointmentForm.get('endTime').value,
       location: this.appointmentForm.get('location').value,
       comments: this.appointmentForm.get('comments').value,
-      id: this.authService.getLoggedInUserLocal(),
+      memberId: this.authService.getLoggedInUserLocal(),
+      id: this.randomAppointmentId
     }
 
     if (this.clonedMember) {
-      this.dataService.updateAppointmentDetails(appointmentDetails, this.authService.getLoggedInUserLocal()).subscribe(
+      this.dataService.updateAppointmentDetails(appointmentDetails, this.randomAppointmentId).subscribe(
         res => {
           console.log('Fetching Appointment Details during edit ' + JSON.stringify(res));
         }, err => {
@@ -146,10 +155,8 @@ export class AppointmentComponent implements OnInit {
   }
 
   checkEndDate(event: any) {
-    console.log('Start Date from UI ' + this.appointmentForm.get('startTime').value);
     if (event < this.appointmentForm.get('startTime').value) {
       this.inValidEndDate = true;
-      console.log('In failure');
     } else {
       this.inValidEndDate = false;
     }
@@ -157,14 +164,12 @@ export class AppointmentComponent implements OnInit {
 
 
   cloneAppointmentDetails() {
-    console.log('Cloning Method');
     this.inValidEndDate = false;
     if (this.getParamQuertStringValueForEdit()) {
-      this.clonedMemberId = this.getParamQuertStringValueForEdit();
+      this.randomAppointmentId = this.getParamQuertStringValueForEdit();
+      this.clonedAppointment = true;
       this.clonedMember = true;
-      console.log('In clone Values');
-      console.log('from login authservice' + this.clonedMemberId);
-      this.dataService.getAppointmentDetails(this.clonedMemberId).subscribe(
+      this.dataService.getAppointmentDetails(this.randomAppointmentId).subscribe(
         res => {
           console.log('Appointment details during edit ' + JSON.stringify(res));
           this.appointmentDetails = res;
@@ -185,7 +190,6 @@ export class AppointmentComponent implements OnInit {
 
 
   getParamQuertStringValueForEdit() {
-    console.log('In edit user');
     const url = this.router.url;
     if (url.includes('edit')) {
       const httpParams = url.split('/');
