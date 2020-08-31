@@ -79,7 +79,11 @@ import { DatePipe } from '@angular/common';
       {
         path: 'viewAppointment/deleteUser/delete/:Id',
         component: DeleteAppointmentComponent
-      }
+      },
+      {
+        path: 'login/register',
+        component: RegisterComponent
+      },
     ]),
     FormsModule,
     ReactiveFormsModule,
