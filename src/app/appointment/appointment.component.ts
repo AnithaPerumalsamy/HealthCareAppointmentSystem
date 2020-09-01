@@ -102,7 +102,11 @@ export class AppointmentComponent implements OnInit {
     if (!this.clonedAppointment) {
       this.randomAppointmentId = 'APP' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomAppointmentId);
+      // this.formattedStartDate = this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy");
     }
+    //else {
+    //this.formattedStartDate = this.appointmentForm.get('startDate').value;
+    // }
     const appointmentDetails: AppointmentDetails = {
       timeZone: this.appointmentForm.get('timeZone').value,
       appointmentType: this.appointmentForm.get('appointmentType').value,

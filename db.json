@@ -31,11 +31,6 @@
       "id": "MEM222520"
     },
     {
-      "userName": "Ram",
-      "password": "password",
-      "id": "MEM422895"
-    },
-    {
       "userName": "Kumar",
       "password": "kumar",
       "id": "MEM998370"
@@ -125,32 +120,6 @@
       "displayName": "Tesr user",
       "supplierName": "dssd",
       "ssnNumber": "ssn785"
-    },
-    {
-      "id": "MEM422895",
-      "name": "Ram",
-      "userName": "Ram",
-      "password": "password",
-      "gaurdianType": "Father",
-      "gaurdianName": "Kumar",
-      "address": "34 rg street",
-      "address2": "uppilipalayam",
-      "citizenShip": "Indian",
-      "state": "TamilNadu",
-      "country": "India",
-      "emailAddress": "ramkumar@gmail.com",
-      "gender": "M",
-      "maritalStatus": "single",
-      "contactNo": 9965518522,
-      "dateOfBirth": "14/05/2014",
-      "registrationDate": "2020-08-31",
-      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
-      "bloodType": "A1-ve",
-      "countryVisited": "None",
-      "citizenStatus": "Minor Citizen",
-      "displayName": "Ram Kumar",
-      "supplierName": "supplier",
-      "ssnNumber": "ssn1234"
     },
     {
       "id": "MEM998370",
@@ -243,18 +212,6 @@
       "id": "APP398394"
     },
     {
-      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
-      "appointmentType": "Private",
-      "startDate": "18/09/2020",
-      "title": "skin",
-      "startTime": "03:00",
-      "endTime": "06:00",
-      "location": "loc",
-      "comments": "general checkup",
-      "memberId": "MEM422895",
-      "id": "APP630812"
-    },
-    {
       "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
       "appointmentType": "Private",
       "startDate": "24/09/2020",
@@ -281,7 +238,7 @@
     {
       "timeZone": "(GMT -8:00) Pacific Time (US &amp; Canada)",
       "appointmentType": "Public",
-      "startDate": "30/09/2020",
+      "startDate": "07/10/2020",
       "title": "Title",
       "startTime": "12:00",
       "endTime": "20:00",
@@ -289,6 +246,18 @@
       "comments": "comments",
       "memberId": "MEM422895",
       "id": "APP629286"
+    },
+    {
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "appointmentType": "Private",
+      "startDate": "09/10/2020",
+      "title": "general doctor",
+      "startTime": "12:00",
+      "endTime": "16:00",
+      "location": "kmch",
+      "comments": "leg swelling",
+      "memberId": "MEM422895",
+      "id": "APP547850"
     }
   ]
 }
