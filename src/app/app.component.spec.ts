@@ -1,16 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { AuthService } from './service/auth.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       declarations: [
         AppComponent
       ],
+      providers: [AuthService, FormBuilder],
     }).compileComponents();
   }));
 
@@ -24,12 +29,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('AppointmentSystem');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('AppointmentSystem app is running!');
   });
 });
