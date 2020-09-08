@@ -56,11 +56,6 @@
       "id": "MEM980821"
     },
     {
-      "userName": "Cognizant",
-      "password": "cognizant",
-      "id": "MEM870930"
-    },
-    {
       "userName": "delete",
       "password": "delte",
       "id": "MEM437580"
@@ -225,32 +220,6 @@
       "ssnNumber": "sds"
     },
     {
-      "id": "MEM870930",
-      "name": "Cognizant",
-      "userName": "Cognizant",
-      "password": "cognizant",
-      "gaurdianType": "Others",
-      "gaurdianName": "other",
-      "address": "23 cbe",
-      "address2": "srvpatti 12",
-      "citizenShip": "Indian",
-      "state": "TamilNadu",
-      "country": "India",
-      "emailAddress": "cognizant@gmail.com",
-      "gender": "M",
-      "maritalStatus": "single",
-      "contactNo": 7708009553,
-      "dateOfBirth": "13/08/2014",
-      "registrationDate": "2020-09-08",
-      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
-      "bloodType": "O+ve",
-      "countryVisited": "India",
-      "citizenStatus": "Minor Citizen",
-      "displayName": "Cognizant",
-      "supplierName": "supplier",
-      "ssnNumber": "ssn 123"
-    },
-    {
       "id": "MEM437580",
       "name": "delet check",
       "userName": "delete",
@@ -399,28 +368,16 @@
       "id": "APP149844"
     },
     {
-      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
       "appointmentType": "Private",
-      "startDate": "2020-09-10T18:30:00.000Z",
-      "title": "Checkup",
+      "startDate": "23/09/2020",
+      "title": "cog",
       "startTime": "12:00",
-      "endTime": "20:00",
-      "location": "kmch",
-      "comments": "review",
-      "memberId": "MEM870930",
-      "id": "APP499375"
-    },
-    {
-      "timeZone": "(GMT -6:00) Central Time (US &amp; Canada), Mexico City",
-      "appointmentType": "Public",
-      "startDate": "12/09/2020",
-      "title": "Checkup",
-      "startTime": "19:00",
-      "endTime": "20:00",
-      "location": "kmch",
-      "comments": "review",
-      "memberId": "MEM870930",
-      "id": "APP298828"
+      "endTime": "21:00",
+      "location": "cog",
+      "comments": "cog",
+      "memberId": "MEM980821",
+      "id": "APP843255"
     }
   ]
 }

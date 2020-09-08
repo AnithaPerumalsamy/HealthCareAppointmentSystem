@@ -36,6 +36,7 @@ describe('LoginComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [{ provide: AuthService, useValue: authService }, HttpClient, DataService, HttpHandler, { provide: formBuilder, useValue: FormBuilder }],
 
