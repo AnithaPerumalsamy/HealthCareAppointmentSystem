@@ -59,6 +59,11 @@
       "userName": "Cognizant",
       "password": "cognizant",
       "id": "MEM870930"
+    },
+    {
+      "userName": "delete",
+      "password": "delte",
+      "id": "MEM437580"
     }
   ],
   "userDetails": [
@@ -244,6 +249,32 @@
       "displayName": "Cognizant",
       "supplierName": "supplier",
       "ssnNumber": "ssn 123"
+    },
+    {
+      "id": "MEM437580",
+      "name": "delet check",
+      "userName": "delete",
+      "password": "delte",
+      "gaurdianType": "Mother",
+      "gaurdianName": "fd",
+      "address": "dfdf",
+      "address2": "dfdf",
+      "citizenShip": "fdf",
+      "state": "Arunachal Pradesh",
+      "country": "India",
+      "emailAddress": "dfdf@gm.com",
+      "gender": "F",
+      "maritalStatus": "single",
+      "contactNo": 9965518801,
+      "dateOfBirth": "07/03/2014",
+      "registrationDate": "2020-09-08",
+      "timeZone": "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+      "bloodType": "O+ve",
+      "countryVisited": "India",
+      "citizenStatus": "Minor Citizen",
+      "displayName": "Cognizant",
+      "supplierName": "vcv",
+      "ssnNumber": "cvcv"
     }
   ],
   "appointmentDetails": [
