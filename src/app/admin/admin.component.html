@@ -1,0 +1,25 @@
+<div *ngIf="appointmentDetails">
+    <h3> Appointment Details of the Registered Users</h3>
+    <table class="table table-striped">
+        <tr>
+            <th scope="row">Time Zone</th>
+            <th scope="row">Appointment Type</th>
+            <th scope="row">Start Date </th>
+            <th scope="row">Title</th>
+            <th scope="row">Start Time</th>
+            <th scope="row">End Time</th>
+            <th scope="row"> Location </th>
+            <th scope="row"> Comments </th>
+        </tr>
+        <tr *ngFor="let appointmentDetail of appointmentDetails">
+            <td>{{ appointmentDetail?.timeZone }}</td>
+            <td>{{ appointmentDetail?.appointmentType }}</td>
+            <td>{{ appointmentDetail?.startDate }}</td>
+            <td>{{ appointmentDetail?.title }}</td>
+            <td>{{ appointmentDetail?.startTime }}</td>
+            <td>{{ appointmentDetail?.endTime }}</td>
+            <td>{{appointmentDetail?.location }}</td>
+            <td>{{ appointmentDetail?.comments }}</td>
+        </tr>
+    </table>
+</div>

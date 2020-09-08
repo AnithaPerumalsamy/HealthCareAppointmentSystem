@@ -12,12 +12,14 @@ export class AuthService {
     }
 
     getLoggedInUserLocal() {
-        if (localStorage.hasOwnProperty(keyLoggedInMemberId)) {
-            console.log('storage memberId ' + localStorage.getItem(keyLoggedInMemberId));
-            return localStorage.getItem(keyLoggedInMemberId);
-        } else {
-            return '';
-        }
+
+        return localStorage.getItem(keyLoggedInMemberId);
+        // if (localStorage.hasOwnProperty(keyLoggedInMemberId)) {
+        //    console.log('storage memberId ' + localStorage.getItem(keyLoggedInMemberId));
+        ///     return localStorage.getItem(keyLoggedInMemberId);
+        // } else {
+        //     return '';
+        //  }
     }
 
     clearLocalStorageUser() {

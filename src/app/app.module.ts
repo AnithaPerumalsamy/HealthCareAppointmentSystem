@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -24,76 +24,89 @@ import { ViewAppointmentComponent } from './view-appointment/view-appointment.co
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { DeleteAppointmentComponent } from './delete-appointment/delete-appointment.component';
 import { DatePipe } from '@angular/common';
-
+import { DynamicComponent } from './dynamic/dynamic.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    AppointmentComponent,
-    ViewUserDetailsComponent,
-    ViewAppointmentComponent,
-    DeleteUserComponent,
-    DeleteAppointmentComponent
-  ],
-  imports: [
-    NgbModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    RouterModule.forRoot([
-      {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
-        path: 'register',
-        component: RegisterComponent
-      },
-      {
-        path: 'appointment',
-        component: AppointmentComponent
-      },
-      {
-        path: 'view',
-        component: ViewUserDetailsComponent
-      },
-      {
-        path: 'view/register/edit/:Id',
-        component: RegisterComponent
-      },
-      {
-        path: 'view/deleteUser/delete/:Id',
-        component: DeleteUserComponent
-      },
-      {
-        path: 'viewAppointment',
-        component: ViewAppointmentComponent
-      },
-      {
-        path: 'viewAppointment/appointment/edit/:Id',
-        component: AppointmentComponent
-      },
-      {
-        path: 'viewAppointment/deleteUser/delete/:Id',
-        component: DeleteAppointmentComponent
-      },
-      {
-        path: 'login/register',
-        component: RegisterComponent
-      },
-    ]),
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    NgxMaterialTimepickerModule,
-    TimepickerModule
-  ],
-  providers: [AuthService, DataService, DatePipe],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        AppointmentComponent,
+        ViewUserDetailsComponent,
+        ViewAppointmentComponent,
+        DeleteUserComponent,
+        DeleteAppointmentComponent,
+        DynamicComponent,
+        AdminComponent
+    ],
+    imports: [
+        NgbModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        HttpClientModule,
+        AppRoutingModule,
+        RouterModule.forRoot([
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                component: RegisterComponent
+            },
+            {
+                path: 'appointment',
+                component: AppointmentComponent
+            },
+            {
+                path: 'view',
+                component: ViewUserDetailsComponent
+            },
+            {
+                path: 'view/register/edit/:Id',
+                component: RegisterComponent
+            },
+            {
+                path: 'view/deleteUser/delete/:Id',
+                component: DeleteUserComponent
+            },
+            {
+                path: 'viewAppointment',
+                component: ViewAppointmentComponent
+            },
+            {
+                path: 'viewAppointment/appointment/edit/:Id',
+                component: AppointmentComponent
+            },
+            {
+                path: 'viewAppointment/deleteUser/delete/:Id',
+                component: DeleteAppointmentComponent
+            },
+            {
+                path: 'login/register',
+                component: RegisterComponent
+            },
+            {
+                path: 'admin',
+                component: AdminComponent
+            }
+        ], {
+            //initialNavigation: 'enabled'
+        }),
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        BsDatepickerModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        NgxMaterialTimepickerModule,
+        TimepickerModule
+    ],
+    providers: [AuthService, DataService, DatePipe],
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ]
 })
 export class AppModule { }

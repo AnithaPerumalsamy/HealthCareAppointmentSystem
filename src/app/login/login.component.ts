@@ -1,12 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginDetails } from '../models/LoginDetails';
-
+import { Location } from '@angular/common';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { DataService } from '../service/DataService';
+
+import {
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ComponentFactory
+} from '@angular/core';
+import { DynamicComponent } from '../dynamic/dynamic.component';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +23,9 @@ import { DataService } from '../service/DataService';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  @Output() loggedIn = new EventEmitter<LoginDetails>();
+
   userName: string;
   password: string;
   loginDetails: LoginDetails[] = [];
@@ -22,12 +34,17 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   memberId: string;
 
-  arrBirds: string[];
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+
+
+
+  private _message = 'Welcome ';
 
   constructor(private _formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService, private dataService: DataService) { }
+    private authService: AuthService, private dataService: DataService,
+    private componentFactoryResolver: ComponentFactoryResolver, private location: Location) { }
 
   ngOnInit(): void {
 
@@ -62,7 +79,14 @@ export class LoginComponent implements OnInit {
         });
         if (this.isValidUser) {
           console.log(this.authService.getLoggedInUserLocal());
-          this.router.navigateByUrl('/');
+          if (this.authService.getLoggedInUserLocal() === 'MEMADMIN') {
+            this.add();
+          }
+          else {
+            this.router.navigateByUrl('/');
+            this.location.go('/');
+            window.location.reload();
+          }
         } else {
           this.errorMessage = 'Invalid UserName or Password. If you are new user kindly click on Register to login.';
         }
@@ -76,5 +100,18 @@ export class LoginComponent implements OnInit {
   get loginFormCtrl() {
     return this.loginForm.controls;
   }
+
+  add(): void {
+
+    // create the component factory
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicComponent);
+
+    // add the component to the view
+    const componentRef = this.container.createComponent(componentFactory);
+
+    // pass some data to the component
+    componentRef.instance.index = this._message + this.loginForm.get('userName').value;
+  }
+
 
 }

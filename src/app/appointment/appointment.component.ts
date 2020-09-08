@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DropDownType } from '../app.const';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
 import { Time } from '@angular/common';
 import { AppointmentDetails } from '../models/AppointmentDetails';
 import { AuthService } from '../service/auth.service';
@@ -8,6 +8,9 @@ import { DataService } from '../service/DataService';
 import { UserDetails } from '../models/UserDetails';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+
+declare const confirmation: any;
+
 
 
 @Component({
@@ -65,6 +68,7 @@ export class AppointmentComponent implements OnInit {
       this.loginSuccess = true;
     }
 
+
     this.appointmentForm = this._formBuilder.group({
       timeZone: ['', Validators.required],
       appointmentType: ['', Validators.required],
@@ -86,7 +90,8 @@ export class AppointmentComponent implements OnInit {
       comments: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required]
-    });
+    }, { validator: this.endTimeValidator('startTime', 'endTime') });
+
     this.minDate = new Date();
     this.minTime.setHours(this.minDate.getHours());
     this.minTime.setMinutes(this.minDate.getMinutes());
@@ -94,23 +99,43 @@ export class AppointmentComponent implements OnInit {
     this.cloneAppointmentDetails();
   }
 
+
   get appointmentFormCtrl() {
     return this.appointmentForm.controls;
   }
+
+  endTimeValidator(from: string, to: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+      let f = group.controls[from];
+      let t = group.controls[to];
+      console.log('f' + f);
+      console.log('t' + t);
+      if (t.value < f.value) {
+        console.log('In if validation');
+        return {
+          dates: "End time should be greater than Start time"
+
+        };
+      }
+      return {};
+    }
+
+  }
+
 
   bookAppointment() {
     if (!this.clonedAppointment) {
       this.randomAppointmentId = 'APP' + Math.floor(100000 + Math.random() * 900000);
       console.log(this.randomAppointmentId);
-      // this.formattedStartDate = this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy");
+      this.formattedStartDate = this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy");
     }
-    //else {
-    //this.formattedStartDate = this.appointmentForm.get('startDate').value;
-    // }
+    else {
+      this.formattedStartDate = this.appointmentForm.get('startDate').value;
+    }
     const appointmentDetails: AppointmentDetails = {
       timeZone: this.appointmentForm.get('timeZone').value,
       appointmentType: this.appointmentForm.get('appointmentType').value,
-      startDate: this.datePipe.transform(this.appointmentForm.get('startDate').value, "dd/MM/yyyy"),
+      startDate: this.formattedStartDate,
       title: this.appointmentForm.get('title').value,
       startTime: this.appointmentForm.get('startTime').value,
       endTime: this.appointmentForm.get('endTime').value,
@@ -148,20 +173,12 @@ export class AppointmentComponent implements OnInit {
           console.log('Error occured during fetching user details in Appointment booking module');
         }
       );
+      confirmation();
       this.appointmentCreatedSuccess = true;
       this.appointmentForm.disable();
 
     }
   }
-
-  checkEndDate(event: any) {
-    if (event < this.appointmentForm.get('startTime').value) {
-      this.inValidEndDate = true;
-    } else {
-      this.inValidEndDate = false;
-    }
-  }
-
 
   cloneAppointmentDetails() {
     this.inValidEndDate = false;

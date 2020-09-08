@@ -17,6 +17,8 @@ export class DeleteUserComponent implements OnInit {
   memberId: string;
   userDetails: UserDetails;
   userDeletedSuccess = false;
+  appointmentDetails: AppointmentDetails[];
+
   constructor(private authService: AuthService,
     private dataService: DataService,
     private router: Router) { }
@@ -31,7 +33,18 @@ export class DeleteUserComponent implements OnInit {
     if (this.getParamQueryStringValue()) {
       console.log('delete member id ' + this.getParamQueryStringValue());
       this.dataService.deleteUserDetails(this.getParamQueryStringValue()).subscribe();
-      this.dataService.deleteAppointmentDetails(this.getParamQueryStringValue()).subscribe();
+      this.dataService.getAllAppointments().subscribe(res => {
+        this.appointmentDetails = res;
+        this.appointmentDetails.forEach(appointmentDetail => {
+          if (appointmentDetail.memberId === this.getParamQueryStringValue()) {
+            console.log('in eqal member ');
+            this.dataService.deleteAppointmentDetails(appointmentDetail.id).subscribe();
+          }
+        })
+        console.log('Fetched appointments during delete ' + this.appointmentDetails);
+      }, err => {
+        console.log('Error while fetching the appointmentDetails');
+      });
       this.dataService.deleteLoginDetails(this.getParamQueryStringValue()).subscribe();
       this.userDeletedSuccess = true;
     }
