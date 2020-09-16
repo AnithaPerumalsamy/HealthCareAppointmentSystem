@@ -14,12 +14,7 @@ export class AuthService {
     getLoggedInUserLocal() {
 
         return localStorage.getItem(keyLoggedInMemberId);
-        // if (localStorage.hasOwnProperty(keyLoggedInMemberId)) {
-        //    console.log('storage memberId ' + localStorage.getItem(keyLoggedInMemberId));
-        ///     return localStorage.getItem(keyLoggedInMemberId);
-        // } else {
-        //     return '';
-        //  }
+
     }
 
     clearLocalStorageUser() {
